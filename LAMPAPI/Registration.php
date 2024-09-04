@@ -1,10 +1,10 @@
 <?php
 
-	$inData = getRequestInfo();
+    $inData = getRequestInfo();
 
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
-    $login = $inData["login"];
+    $username = $inData["username"];
     $password = $inData["password"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
