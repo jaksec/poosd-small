@@ -50,7 +50,10 @@ input:focus::placeholder
     height: auto;
     display: block;
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 #title {
     position: absolute;
     top: 42%; /* Adjust this value to control vertical positioning */
@@ -73,17 +76,26 @@ input:focus::placeholder
     justify-content: center;
 }
 .L-button{
-    height: 70px;
-    width: 70px;
+    /* height: 70px;
+    width: 70px; */
     border-radius: 50px;
 }
 
 .L-buttonglow{
+    position: relative;
     margin: 50px;
     height: 40px;
     width: 80px;
     background: radial-gradient(blue,cyan,blue);
     border-radius: 50px;
+}
+
+
+.L-buttonglow .L-button, .L-buttonglow span{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .S-buttonglow{
     margin: 0 50px;
@@ -91,14 +103,6 @@ input:focus::placeholder
     width: 80px;
     background: radial-gradient(blue,cyan,blue);
     border-radius: 50px;
-}
-
-
-.L-button, .L-buttonglow span{
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .S-button, .S-buttonglow span{
     position:absolute;
