@@ -215,11 +215,11 @@ input[type="text"],input[type="password"]{
     margin-top: 20px;
     color: #95060a;
     opacity: 0; /* Start hidden */
-    transition: opacity 2s; /* Apply the animation */
+    transition: opacity 1s; /* Apply the animation */
 }
 
 .fadeIn {
-    animation: fadeInAnimation 2s forwards; /* Apply the animation */
+    animation: fadeInAnimation 1s forwards; /* Apply the animation */
 }
 
 @keyframes fadeInAnimation {
