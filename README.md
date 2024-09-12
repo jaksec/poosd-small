@@ -15,10 +15,10 @@
 
 - Christie Beaubrun (PM)
 - Brandon Ramlagan (Database)
-Michael Miletic (API)
-Ning Dim (API)
-Betsy Varela Castro (Front End)
-Chris Jaksec (Front End)
+- Michael Miletic (API)
+- Ning Dim (API)
+- Betsy Varela Castro (Front End)
+- Chris Jaksec (Front End)
 
 ---
 ## Project Setup
