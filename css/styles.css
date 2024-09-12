@@ -21,40 +21,43 @@ input:focus::placeholder
     z-index: 1;
 }
 
+/*added z index*/
 .image-container {
     position: absolute;
     height: 100%; /* Correct height syntax */
     margin-left: 42%;
     margin-top: 5%;
-    z-index: 0;
+    z-index: 9; 
 }
-
+/*added z index*/
 .image-container img {
     max-height: 200px;
     width: auto;
     height: auto;
     display: block;
+    z-index: 9;
 }
-
+/*modified z index*/
 .image-container-login {
     position: absolute;
     height: 100%; /* Correct height syntax */
     margin-left: 3%;
     margin-top: 3%;
-    z-index: 2;
+    z-index: 9;
 }
-
+/*added z index*/
 .image-container-login img {
     max-height: 150px;
     width: auto;
     height: auto;
     display: block;
+    z-index: 9;
 }
 
-#title {
+#title {/*modified "left"*/
     position: absolute;
     top: 42%; /* Adjust this value to control vertical positioning */
-    left: 50%;
+    left: 49%;
     transform: translateX(-50%);
     font-size: 50px;
     width: 100%;
@@ -64,90 +67,171 @@ input:focus::placeholder
     z-index: 3; /* Ensures the title stays on top */
 }
 
-.center{
+.center{/*modified*/
     position: absolute;
     top: 60%; /* Adjust this value to control vertical positioning */
-    left: 42%;
+    left: 28%;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
-}
-.L-button{
-    /* height: 70px;
-    width: 70px; */
+    background: rgba(0,0,0,0.3);
     border-radius: 50px;
+    z-index: 9;   
 }
 
-.L-buttonglow{
+.L-buttonglow{ /*modified*/
     position: relative;
     margin: 50px;
-    height: 40px;
-    width: 80px;
+    height: 70px;
+    width: 220px;
     background: radial-gradient(blue,cyan,blue);
     border-radius: 50px;
 }
 
-
-.L-buttonglow .L-button, .L-buttonglow span{
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.S-buttonglow{
-    margin: 0 50px;
-    height: 40px;
-    width: 80px;
-    background: radial-gradient(blue,cyan,blue);
-    border-radius: 50px;
-}
-.S-button, .S-buttonglow span{
+.L-buttonglow button, .L-buttonglow span{/*modified*/
     position:absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+.L-buttonglow button{/*added*/
+    background: #111;
+    color: #f2f2f2;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.button button{/*added*/
+    height: 60px;
+    width: 210px;
+    border-radius: 50px;
+}
+
+.S-buttonglow{/*modified*/
+    position: relative;
+    margin: 50px;
+    height: 70px;
+    width: 220px;
+    background: radial-gradient(blue,cyan,blue);
+    border-radius: 50px;
+}
+.S-buttonglow button, .S-buttonglow span{/*added/modified */
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.S-buttonglow button{/*added/modified*/
+    background: #111;
+    color: #f2f2f2;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.subutton button{ /*added*/
+    height: 60px;
+    width: 210px;
+    border-radius: 50px;
+}
+
+.subutton{/*added*/
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+.button button{ /*added*/
+    height: 60px;
+    width: 210px;
+    border-radius: 50px;
+}
+
+.button{/*added*/
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+
+/*End of changes for buttons*/
 .centrimg{
     height:"100";
     margin-left: 33.3%;
     margin-right: auto;
     margin-top: 10%;
 }
-
+/*modified position, color and dimentions*/
 #loginDiv
 {
+    position: absolute;
+    
     font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
+    width: 33%;
+    margin-left: 30%;
+    margin-top: 15%;
     height: 350px;
     padding: 25px;
-    background-color: rgb(58, 176, 255);
-    border: 2px solid black;
-    z-index: 1;
+    background-color: rgba(0,0,0, 0.1);
+    border-radius: 25px;
+    
+    
+    z-index: 9;
 }
-
+/*need to add fucntionality and modified the 
+color os the logout box to black to match the rest
+also the input boxes.log out functionality is working*/
 #loggedInDiv
 {
+    position: absolute;
     font-size: 30px;
     width: 70%;
-    margin-left: 15%;
+    margin-top: 1%;
+    margin-left: 13%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color:transparent;
+    z-index: 10;
 }
 
+/*modified*/
 #accessUIDiv
 {
+    position: absolute;
     font-size: 30px;
+    margin-top: 15%;
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: rgba(0,0,0, 0.1);
+    border-radius: 25px;
+    z-index: 10;
 }
-
+/*modified color and border*/
 .buttons
 {
+    position: relative;
+    color: rgb(189, 153, 86);
     font-size: 30px;
     border-radius: 25px;
     width: 50%;
@@ -155,22 +239,31 @@ input:focus::placeholder
     font-family: 'Poppins', sans-serif;
     font-weight: 200;
     font-style: normal;
+    border: #f2f2f2;
+    z-index: 10;
 }
 
 .buttons:hover{
-    background-color: #00d5124f;
+    background-color: #010a0dc8;
     color: #FFFFFF;
     opacity: 50%;
 }
-
+/*Modified placeholders*/
 #loginName
 {
 	font-size: 30px;
+    color:white;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
 }
 #loginPassword
 {
 	font-size: 30px;
+    color: white;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
 }
+/*end of changes in this part*/
 #searchText
 {
 	font-size: 30px;
@@ -190,18 +283,23 @@ input[type="text"],input[type="password"]{
     font-weight: 200;
     font-style: normal;
 }
-
+/*MODIFIED*/
+/*we should add gradient border to the black log in box so it is similar to the home page*/
+/*text moves when browser window is smaller*/
 #inner-title{
     display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
+    font-size: 1.5em;
+    width: 50%;
+    height: 70px;
     text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
+    margin-left: 25%;
+    margin-bottom: 5%;
     font-family: 'Poppins', sans-serif;
-    font-weight: 200;
-    font-style: normal;
-    color: #95060a;
+    font-weight: 500;
+    font-style: bold;
+    background-color: black;
+    border-radius: 25px;
+    color: white;    
 }
 
 #loginResult{
@@ -241,8 +339,11 @@ input[type="text"],input[type="password"]{
 }
 
 #logoutButton{
+    margin-top: 5%;
     width: 20%;
     margin-left: 40%;
+    position: absolute;
+    z-index: 10;
 }
 
 select{
