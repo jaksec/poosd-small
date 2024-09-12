@@ -7,6 +7,11 @@ body {
     position: relative;
 }
 
+input:focus::placeholder 
+{
+    color: transparent;
+}
+
 #particles-js {
     position: absolute;
     top: 0;
@@ -21,11 +26,26 @@ body {
     height: 100%; /* Correct height syntax */
     margin-left: 42%;
     margin-top: 5%;
-    z-index: 2;
+    z-index: 0;
 }
 
 .image-container img {
     max-height: 200px;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.image-container-login {
+    position: absolute;
+    height: 100%; /* Correct height syntax */
+    margin-left: 3%;
+    margin-top: 3%;
+    z-index: 2;
+}
+
+.image-container-login img {
+    max-height: 150px;
     width: auto;
     height: auto;
     display: block;
@@ -99,8 +119,11 @@ body {
     font-size: 30px;
     width: 70%;
     margin-left: 15%;
+    height: 350px;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: rgb(58, 176, 255);
+    border: 2px solid black;
+    z-index: 1;
 }
 
 #loggedInDiv
@@ -127,7 +150,9 @@ body {
     border-radius: 25px;
     width: 50%;
     margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
 }
 
 .buttons:hover{
@@ -159,7 +184,9 @@ input[type="text"],input[type="password"]{
     width: 80%;
     margin-left: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
 }
 
 #inner-title{
@@ -169,7 +196,9 @@ input[type="text"],input[type="password"]{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
     color: #95060a;
 }
 
@@ -180,8 +209,26 @@ input[type="text"],input[type="password"]{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    margin-top: 20px;
     color: #95060a;
+    opacity: 0; /* Start hidden */
+    transition: opacity 2s; /* Apply the animation */
+}
+
+.fadeIn {
+    animation: fadeInAnimation 2s forwards; /* Apply the animation */
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0; /* Start from fully transparent */
+    }
+    to {
+        opacity: 1; /* End at fully opaque */
+    }
 }
 
 #userName{
@@ -201,7 +248,9 @@ select{
     margin-left: 35%;
     margin-top: 2%;
     font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
 }
 
 #colorSearchResult{
@@ -216,6 +265,8 @@ select{
     margin-left: 5%;
     margin-top: 2%;
     margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
     color: #95060a;
 }

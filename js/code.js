@@ -35,9 +35,12 @@ function doLogin()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 		
-				if( userId < 1 )
+				if(userId < 1)
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					loginResult.innerHTML = "User/Password combination incorrect";
+					loginResult.classList.remove('fadeIn'); // Remove the class to reset the animation
+					void loginResult.offsetWidth;
+					loginResult.classList.add('fadeIn');
 					return;
 				}
 		
