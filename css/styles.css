@@ -50,10 +50,7 @@ input:focus::placeholder
     height: auto;
     display: block;
 }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 #title {
     position: absolute;
     top: 42%; /* Adjust this value to control vertical positioning */
@@ -66,6 +63,7 @@ input:focus::placeholder
     color: #000000;
     z-index: 3; /* Ensures the title stays on top */
 }
+
 .center{
     position: absolute;
     top: 60%; /* Adjust this value to control vertical positioning */
