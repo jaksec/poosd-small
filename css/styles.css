@@ -1,16 +1,97 @@
-body 
-{
-    background-color: #707070;
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: radial-gradient(circle at 10% 20%, rgb(137, 247, 254) 0%, rgb(102, 166, 255) 90%);
+    overflow: hidden;
+    position: relative;
 }
 
-#title 
-{
-    font-size: 40px;
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin: 2% 5%;
+    height: 100%;
+    z-index: 1;
+}
+
+.image-container {
+    position: absolute;
+    height: 100%; /* Correct height syntax */
+    margin-left: 42%;
+    margin-top: 5%;
+    z-index: 2;
+}
+
+.image-container img {
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+#title {
+    position: absolute;
+    top: 42%; /* Adjust this value to control vertical positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+    width: 100%;
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+    font-family:'Courier New', Courier, monospace;
+    color: #000000;
+    z-index: 3; /* Ensures the title stays on top */
+}
+.center{
+    position: absolute;
+    top: 60%; /* Adjust this value to control vertical positioning */
+    left: 42%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.L-button{
+    height: 70px;
+    width: 70px;
+    border-radius: 50px;
+}
+
+.L-buttonglow{
+    margin: 50px;
+    height: 40px;
+    width: 80px;
+    background: radial-gradient(blue,cyan,blue);
+    border-radius: 50px;
+}
+.S-buttonglow{
+    margin: 0 50px;
+    height: 40px;
+    width: 80px;
+    background: radial-gradient(blue,cyan,blue);
+    border-radius: 50px;
+}
+
+
+.L-button, .L-buttonglow span{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.S-button, .S-buttonglow span{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centrimg{
+    height:"100";
+    margin-left: 33.3%;
+    margin-right: auto;
+    margin-top: 10%;
 }
 
 #loginDiv
