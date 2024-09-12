@@ -337,7 +337,7 @@ input[type="text"],input[type="password"]{
     margin-left: 10%;
     text-align: center;
 }
-
+/*modified*/
 #logoutButton{
     margin-top: 5%;
     width: 20%;
