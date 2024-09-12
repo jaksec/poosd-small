@@ -13,8 +13,8 @@
 ---
 ## Contributors - Team Members 
 
-Christie Beaubrun (PM)
-Brandon Ramlagan (Database)
+- Christie Beaubrun (PM)
+- Brandon Ramlagan (Database)
 Michael Miletic (API)
 Ning Dim (API)
 Betsy Varela Castro (Front End)
