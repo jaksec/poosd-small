@@ -11,7 +11,16 @@
 5. [Future Improvements](#future-improvements)
 
 ---
+## Contributors - Team Members 
 
+Christie Beaubrun (PM)
+Brandon Ramlagan (Database)
+Michael Miletic (API)
+Ning Dim (API)
+Betsy Varela Castro (Front End)
+Chris Jaksec (Front End)
+
+---
 ## Project Setup
 
 ### Prerequisites
