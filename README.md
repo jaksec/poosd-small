@@ -1,7 +1,7 @@
 # TouchBase Contact Manager
 
 ### Overview
-**TouchBase** is a simple contact management web application that allows users to store, manage, and search for contacts in a secure environment. The application provides user authentication through a login and registration system, and includes features such as adding, searching, and deleting contacts. The project also includes a visually appealing particle animation in the background to enhance the user interface.
+**TouchBase** is a simple contact management web application that allows users to store, manage, and search for contacts in a secure environment. The application provides user authentication through a login and registration system and includes features such as adding, searching, and deleting contacts. The project also includes a visually appealing particle animation in the background to enhance the user interface.
 
 ### Table of Contents
 1. [Project Setup](#project-setup)
@@ -22,8 +22,6 @@
 
 ---
 ## Project Setup
-
-### Prerequisites
 
 
 
