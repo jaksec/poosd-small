@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 $inData = getRequestInfo();
 
@@ -7,7 +7,6 @@ $lastName = $inData["lastName"];
 $username = $inData["username"];
 $password = $inData["password"];
 
-
 $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
 if ($conn->connect_error) {
@@ -15,31 +14,41 @@ if ($conn->connect_error) {
 } 
 else 
 {
-    
-    $stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
+    // Prepare and bind the select statement
+    $stmt = $conn->prepare("SELECT Username FROM Users WHERE Username = ?");
     $stmt->bind_param("s", $username); 
     $stmt->execute();
     $result = $stmt->get_result();
-    $rows = $result->num_rows;
 
-    if ($rows == 0) 
-	{
-        
+    // Check if the username exists in the database
+    if ($result->num_rows > 0) 
+    {
+        // Username already exists
+        returnWithError("Sorry... Username is taken");
+    } 
+    else 
+    {
+        // Hash the password
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the new user into the database
         $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
+        $stmt->bind_param("ssss", $firstName, $lastName, $username, $passwordHash);
         $stmt->execute();
+
+        // Get the new user's ID
         $id = $conn->insert_id;
 
+        // Close the statement and connection
         $stmt->close();
         $conn->close();
 
+        // Return the user's info
         returnWithInfo($firstName, $lastName, $id);
-    } 
-else 
-    {
-        returnWithError("Sorry...Username is taken");
     }
 }
+
+// Helper functions
 
 function getRequestInfo() {
     return json_decode(file_get_contents('php://input'), true);
@@ -61,3 +70,4 @@ function returnWithInfo($firstName, $lastName, $id) {
 }
 
 ?>
+

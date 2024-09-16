@@ -1,15 +1,11 @@
-body {
+/*-*********************************BACKGROUND***********************************************-*/
+html, body {
     margin: 0;
     padding: 0;
     height: 100vh;
     background: radial-gradient(circle at 10% 20%, rgb(137, 247, 254) 0%, rgb(102, 166, 255) 90%);
     overflow: hidden;
     position: relative;
-}
-
-input:focus::placeholder 
-{
-    color: transparent;
 }
 
 #particles-js {
@@ -20,16 +16,16 @@ input:focus::placeholder
     height: 100%;
     z-index: 1;
 }
-
-/*added z index*/
+/*-*********************************HOMEPAGE***********************************************-*/
 .image-container {
     position: absolute;
+    top: 60%; /* Lowered the logo by adjusting the top property */
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 100%; /* Correct height syntax */
-    margin-left: 42%;
-    margin-top: 5%;
-    z-index: 9; 
+    z-index: 9; /* Ensures the image stays above other elements */
 }
-/*added z index*/
+
 .image-container img {
     max-height: 200px;
     width: auto;
@@ -37,242 +33,141 @@ input:focus::placeholder
     display: block;
     z-index: 9;
 }
-/*modified z index*/
-.image-container-login {
-    position: absolute;
-    height: 100%; /* Correct height syntax */
-    margin-left: 3%;
-    margin-top: 3%;
-    z-index: 9;
-}
-/*added z index*/
-.image-container-login img {
-    max-height: 150px;
-    width: auto;
-    height: auto;
-    display: block;
-    z-index: 9;
-}
 
-#title {/*modified "left"*/
+#title {
     position: absolute;
-    top: 42%; /* Adjust this value to control vertical positioning */
-    left: 49%;
-    transform: translateX(-50%);
-    font-size: 50px;
+    top: 40%; /* Lowered the title to avoid it overlapping the image */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: 1px;
     width: 100%;
     text-align: center;
-    font-family:'Courier New', Courier, monospace;
-    color: #000000;
-    z-index: 3; /* Ensures the title stays on top */
+    color: rgb(17, 14, 163);
+    z-index: 10; /* Increased z-index to ensure title appears above the image */
 }
 
-.center{/*modified*/
+.center {
     position: absolute;
-    top: 60%; /* Adjust this value to control vertical positioning */
-    left: 28%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
-    text-align: center;
     justify-content: center;
-    background: rgba(0,0,0,0.3);
-    border-radius: 50px;
-    z-index: 9;   
-}
-
-.L-buttonglow{ /*modified*/
-    position: relative;
-    margin: 50px;
-    height: 70px;
-    width: 220px;
-    background: radial-gradient(blue,cyan,blue);
-    border-radius: 50px;
-}
-
-.L-buttonglow button, .L-buttonglow span{/*modified*/
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.L-buttonglow button{/*added*/
-    background: #111;
-    color: #f2f2f2;
-    outline: none;
-    border: none;
-    font-size: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.button button{/*added*/
-    height: 60px;
-    width: 210px;
-    border-radius: 50px;
-}
-
-.S-buttonglow{/*modified*/
-    position: relative;
-    margin: 50px;
-    height: 70px;
-    width: 220px;
-    background: radial-gradient(blue,cyan,blue);
-    border-radius: 50px;
-}
-.S-buttonglow button, .S-buttonglow span{/*added/modified */
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.S-buttonglow button{/*added/modified*/
-    background: #111;
-    color: #f2f2f2;
-    outline: none;
-    border: none;
-    font-size: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.subutton button{ /*added*/
-    height: 60px;
-    width: 210px;
-    border-radius: 50px;
-}
-
-.subutton{/*added*/
-    animation: rotate 1.5s linear infinite;
-}
-@keyframes rotate {
-    0%{
-        filter: hue-rotate(-320deg);
-    } 
-    100%{
-        filter: hue-rotate(-360deg);
-    }
-}
-.button button{ /*added*/
-    height: 60px;
-    width: 210px;
-    border-radius: 50px;
-}
-
-.button{/*added*/
-    animation: rotate 1.5s linear infinite;
-}
-@keyframes rotate {
-    0%{
-        filter: hue-rotate(-320deg);
-    } 
-    100%{
-        filter: hue-rotate(-360deg);
-    }
-}
-
-
-/*End of changes for buttons*/
-.centrimg{
-    height:"100";
-    margin-left: 33.3%;
-    margin-right: auto;
-    margin-top: 10%;
-}
-/*modified position, color and dimentions*/
-#loginDiv
-{
-    position: absolute;
-    
-    font-size: 30px;
-    width: 33%;
-    margin-left: 30%;
-    margin-top: 15%;
-    height: 350px;
-    padding: 25px;
-    background-color: rgba(0,0,0, 0.1);
-    border-radius: 25px;
-    
-    
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 70px;
     z-index: 9;
 }
-/*need to add fucntionality and modified the 
-color os the logout box to black to match the rest
-also the input boxes.log out functionality is working*/
-#loggedInDiv
-{
-    position: absolute;
-    font-size: 30px;
-    width: 70%;
-    margin-top: 1%;
-    margin-left: 13%;
-    padding: 25px;
-    background-color:transparent;
-    z-index: 10;
-}
 
-/*modified*/
-#accessUIDiv
-{
-    position: absolute;
-    font-size: 30px;
-    margin-top: 15%;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: rgba(0,0,0, 0.1);
-    border-radius: 25px;
-    z-index: 10;
-}
-/*modified color and border*/
-.buttons
-{
+.L-buttonglow {
     position: relative;
-    color: rgb(189, 153, 86);
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
+    margin: 50px;
+    height: 70px;
+    width: 220px;
+    background: radial-gradient(blue, cyan, blue);
+    border-radius: 50px;
+}
+
+.L-buttonglow button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    color: #f2f2f2;
+    border: none;
+    outline: none;
     font-family: 'Poppins', sans-serif;
-    font-weight: 200;
-    font-style: normal;
-    border: #f2f2f2;
-    z-index: 10;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    height: 60px;
+    width: 210px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.buttons:hover{
-    background-color: #010a0dc8;
-    color: #FFFFFF;
-    opacity: 50%;
-}
-/*Modified placeholders*/
-#loginName
-{
-	font-size: 30px;
-    color:white;
-    background-color: rgba(245,245,245,0.3);
-    border: #f2f2f2;
-}
-#loginPassword
-{
-	font-size: 30px;
-    color: white;
-    background-color: rgba(245,245,245,0.3);
-    border: #f2f2f2;
-}
-/*end of changes in this part*/
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
+.S-buttonglow {
+    position: relative;
+    margin: 50px;
+    height: 70px;
+    width: 220px;
+    background: radial-gradient(blue, cyan, blue);
+    border-radius: 50px;
 }
 
+.S-buttonglow button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    color: #f2f2f2;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    height: 60px;
+    width: 210px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.L-buttonglow button:hover, .S-buttonglow button:hover {
+    background: #f2f2f2; 
+    color: rgb(17, 14, 163);     
+    transition: all 0.3s ease-in-out;  
+}
+
+@keyframes rotate {
+    0% {
+        filter: hue-rotate(-320deg);
+    }
+    100% {
+        filter: hue-rotate(-360deg);
+    }
+}
+@keyframes glowAnimation {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+}
+
+.button {
+    animation: rotate 1.5s linear infinite;
+    animation: glowAnimation 1.5s infinite;
+}
+
+.subutton {
+    animation: rotate 1.5s linear infinite;
+    animation: glowAnimation 1.5s infinite;
+}
+
+
+
+/*-*********************************LOGIN***********************************************-*/
+/* log in page box design */
+
+/*LOGO image for log in page*/
 input[type="text"],input[type="password"]{
     border-radius: 25px;
     text-align: center;
@@ -282,70 +177,703 @@ input[type="text"],input[type="password"]{
     font-family: 'Poppins', sans-serif;
     font-weight: 200;
     font-style: normal;
+    color: black;
 }
-/*MODIFIED*/
-/*we should add gradient border to the black log in box so it is similar to the home page*/
-/*text moves when browser window is smaller*/
-#inner-title{
-    display: inline-block;
-    font-size: 1.5em;
-    width: 50%;
+.image-container-login {
+    position: absolute;
+    height: 100%; /* Correct height syntax */
+    margin-left: 3%;
+    margin-top: 3%;
+    z-index: 9;
+}
+
+.image-container-login img {
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    display: block;
+    z-index: 9;
+}
+#loginDiv
+{
+
+    width: 33%;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-around; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    height: auto; /* allow for content */
+    z-index: 10;
+    margin-left: 30%;
+    margin-top: 15%;
+    
+}
+.inner-titleglow {
+    position: relative;
+    margin-top: 20px;
     height: 70px;
-    text-align: center;
-    margin-left: 25%;
-    margin-bottom: 5%;
+    width: 220px;
+    background: radial-gradient(blue, cyan, blue); /* Glow effect */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.inner-title {
+    background: #111; /* Black background */
+    color: #f2f2f2; /* Light text color */
+    border-radius: 50px; /* Rounded edges for the black box */
+    height: 60px; /* Slightly smaller to fit inside the outer container */
+    width: 210px; /* Adjust width to fit within the outer container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-style: bold;
-    background-color: black;
-    border-radius: 25px;
-    color: white;    
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 10;
+}
+
+@keyframes glowAnimation {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+}
+
+.inner-titleglow span {
+    animation: glowAnimation 1.5s infinite;
+}
+.inner-titleglow{
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+.buttons-glow {
+    position: relative;
+    margin: 20px;
+    height: 55px;
+    width: 195px;
+    background: radial-gradient(blue, cyan, blue); 
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.buttons
+{
+    background: white;
+    color: rgb(17, 14, 163);
+    border-radius: 50px; 
+    height: 45px;
+    width: 185px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 10;
+}
+
+.buttons:hover{
+    background-color: #000000;
+    color: #FFFFFF; 
+    transition: all 0.3s ease-in-out;   
+}
+.buttons-glow{
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+#loginName
+{
+    margin-left: 2%;
+    margin-top: 30px;
+	font-size: 30px;
+    color:black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
+}
+#loginPassword
+{
+    margin-left: 2%;
+	font-size: 30px;
+    color: black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
 }
 
 #loginResult{
     display: inline-block;
     font-size: 0.8em;
-    width: 90%;
+    width: 200px;
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Poppins', sans-serif;
-    font-weight: 200;
+    font-weight: 100;
     font-style: normal;
     margin-top: 20px;
     color: #95060a;
-    opacity: 0; /* Start hidden */
-    transition: opacity 1s; /* Apply the animation */
+    transition: opacity 1s; 
 }
 
 .fadeIn {
-    animation: fadeInAnimation 1s forwards; /* Apply the animation */
+    animation: fadeInAnimation 1s forwards;
 }
 
 @keyframes fadeInAnimation {
     from {
-        opacity: 0; /* Start from fully transparent */
+        opacity: 0; 
     }
     to {
-        opacity: 1; /* End at fully opaque */
+        opacity: 1; 
     }
 }
 
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-}
-/*modified*/
-#logoutButton{
-    margin-top: 5%;
-    width: 20%;
-    margin-left: 40%;
+
+/*-*********************************SIGN UP PAGE***********************************************-*/
+/*LOGO image for sign up page*/
+.image-container-signup {
     position: absolute;
+    height: 100%; /* Correct height syntax */
+    margin-left: 3%;
+    margin-top: 3%;
+    z-index: 9;
+}
+
+.image-container-signup img {
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    display: block;
+    z-index: 9;
+}
+#signupDiv
+{
+
+    width: 33%;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-around; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    height: auto; /* allow for content */
+    z-index: 10;
+    margin-left: 30%;
+    margin-top: 8%;
+    
+}
+.innersu-titleglow {
+    position: relative;
+    margin-top: 20px;
+    height: 70px;
+    width: 220px;
+    background: radial-gradient(blue, cyan, blue); /* Glow effect */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 10;
 }
 
+.innersu-title {
+    background: #111; /* Black background */
+    color: #f2f2f2; /* Light text color */
+    border-radius: 50px; /* Rounded edges for the black box */
+    height: 60px; /* Slightly smaller to fit inside the outer container */
+    width: 210px; /* Adjust width to fit within the outer container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 10;
+}
+
+@keyframes glowAnimation {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+}
+
+.innersu-titleglow span {
+    animation: glowAnimation 1.5s infinite;
+}
+.innersu-titleglow{
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+.buttons-su-glow {
+    position: relative;
+    margin: 20px;
+    height: 55px;
+    width: 195px;
+    background: radial-gradient(blue, cyan, blue); 
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.buttons-su
+{
+    background: white;
+    color: rgb(17, 14, 163);
+    border-radius: 50px; 
+    height: 45px;
+    width: 185px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 10;
+}
+
+.buttons-su:hover{
+    background-color: #000000;
+    color: #FFFFFF; 
+    transition: all 0.3s ease-in-out;   
+}
+.buttons-su-glow{
+    animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+    0%{
+        filter: hue-rotate(-320deg);
+    } 
+    100%{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+#firstName
+{
+    margin-top: 20px;
+    margin-left: 2%;
+	font-size: 30px;
+    color:black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
+}
+#lastName
+{
+    margin-left: 2%;
+	font-size: 30px;
+    color: black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
+}
+#userloginName
+{
+    margin-left: 2%;
+	font-size: 30px;
+    color:black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
+}
+#newPassword
+{
+    margin-left: 2%;
+	font-size: 30px;
+    color: black;
+    background-color: rgba(245,245,245,0.3);
+    border: #f2f2f2;
+    z-index: 10;
+}
+
+#registrationResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 200px;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 20px;
+    color: #95060a;
+    transition: opacity 1s; 
+}
+
+.fadeIn {
+    animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0; 
+    }
+    to {
+        opacity: 1; 
+    }
+}
+
+/*-********************************LOGGED IN USER ACCOUNT PAGE**********************************-*/
+
+#loggedInDiv
+{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 90%;
+    height: 80px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
+    z-index: 10;
+}
+.message {
+    position: absolute;
+    top: 5%; /* Adjust the top value as needed */
+    left: 9%; /* Adjust the left value as needed */
+    width: auto;
+    font-family: 'poppins' ,sans-serif; /* Adjust the width based on the content */
+    font-size: 13px; /* Adjust the size as needed */
+    font-weight: 100;
+    color: #599ad0;
+    z-index: 17; /* Ensure it appears above other elements */
+    white-space: nowrap;
+}
+
+
+.logOut {
+    position: absolute;
+    top:7%;
+    right: 7%;
+    height: 50px;
+    width: 50px;
+    background: radial-gradient(blue, cyan, blue); /* Glow effect */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotate 3s linear infinite; /* Rotating glow effect */
+    z-index: 15;
+}
+
+
+.logoutButton {
+    
+    background:white; 
+    color: rgb(17, 14, 163);
+    border-radius: 50px; 
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 40;
+    font-size: 25px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 15;
+   
+   
+}
+
+.logoutButton:hover {
+    background-color:red;
+    color: white;
+}
+
+
+@keyframes glowAnimation {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+}
+
+.logoutButton {
+    animation: glowAnimation 0s infinite; /* Glowing text effect */
+}
+
+/* Rotating hue animation */
+@keyframes rotate {
+    0% {
+        filter: hue-rotate(-320deg);
+    }
+    100% {
+        filter: hue-rotate(-360deg);
+    }
+}
+
+
+.searchbox {
+    position: absolute;
+    top: 7.5%;
+    right: 16%;
+    z-index: 16;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 20px; 
+    transition: width 0.4s ease-in-out;
+}
+
+.searchbox:hover {
+    width: 400px;
+}
+
+.searchbox input {
+    width: 0;
+    opacity: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    transition: width 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    font-weight: 500;
+    color: black;
+}
+
+.searchbox:hover input {
+    width: 400px;
+    opacity: 1; 
+    padding-left: 1px;
+}
+
+.searchbox input::placeholder {
+    color: black;
+    opacity: 0.6;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.searchbox .fas {
+    color: rgb(123, 0, 255);
+    font-size: 18px;
+}
+
+.addcontactButton {
+    position: absolute;
+    top:7.5%;
+    right: 12%;
+    background:white; 
+    color:green;
+    border-radius: 50px; 
+    height: 40px;
+    width: 40px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 40;
+    font-size: 25px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    z-index: 15;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);  
+}
+
+.addcontactButton .fas {
+    color: green;
+    font-size: 18px;
+}
+.addcontactButton:hover{
+    background-color: rgb(155, 255, 155);
+
+
+}
+
+#contactForm {
+    position: relative;
+    background-color: white;
+    border-style: groove;
+    border-color: #599ad0;
+    border-width: 10px;
+    border-radius: 25px;
+    display: flex; /* Add flexbox for centering */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Optional shadow */
+    height: 600px;
+    width: 350px; /* Adjust width for better alignment */
+    margin: 8.5% 65%; /* Center the form horizontally and give space from the top */
+    z-index: 16;
+}
+.formtitle{
+    margin-top:25px;
+    width: 80%; /* Ensure the inputs take up enough space */
+    margin: 15px 30px; /* Add some space between inputs */
+    padding: 10px;
+    font-family: 'poppins' ,sans-serif; /* Adjust the width based on the content */
+    font-size: 32px; /* Adjust the size as needed */
+    font-weight: 100;
+    color: #599ad0;
+    z-index: 20;
+}
+#contactForm input{
+    margin-top:25px;
+    margin-left: 15%;
+    width: 80%; /* Ensure the inputs take up enough space */
+    margin: 10px 30px; /* Add some space between inputs */
+    padding: 10px; /* Add padding for better appearance */
+    font-size: 20px; /* Adjust font size */
+    color: black;
+    background-color: rgba(115, 232, 216, 0.3);
+    border: 1px solid #f2f2f2;
+    border-radius: 25px; /* Add some border radius for a nicer look */
+}
+
+#contactForm button {
+    position: absolute;
+    margin-left: 45%;
+    height: 50px; /* Increased size for better visibility */
+    width: 50px;
+    background: radial-gradient(circle, cyan 30%, blue); /* Gradient glow effect */
+    border-radius: 50%; /* Make the button circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     /* Optional rotating glow effect */
+    z-index: 25;
+    border: none;
+    cursor: pointer; /* Show pointer cursor when hovering */
+}
+
+#contactForm i {
+    color: rgb(17, 14, 163); /* Icon color */
+    font-size: 24px; /* Adjust icon size */
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    position: relative;
+    z-index: 25;
+}
+
+#contactForm i:hover {
+    background-color:green;
+    color: white;
+}
+
+
+@keyframes glowAnimation {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    }
+}
+
+#contactForm button {
+    animation: glowAnimation 2s infinite; /* Glowing text effect */
+    animation: rotate 3s linear infinite;
+}
+
+
+/* Rotating hue animation */
+@keyframes rotate {
+    0% {
+        filter: hue-rotate(-320deg);
+    }
+    100% {
+        filter: hue-rotate(-360deg);
+    }
+}
 select{
     width: 30%;
     margin-left: 35%;
@@ -355,10 +883,85 @@ select{
     font-weight: 200;
     font-style: normal;
 }
+#accessUIDiv
+{
+    position: absolute;
+    top: 18%;
+    right: 5%;
+    width: 90%;
+    height: 800px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
+    z-index: 10;
+}
+/*
+#searchText
+{
+	font-size: 30px;
+    color: black;
+}
+#colorText
+{
+	font-size: 30px;
+    color: black;
+}
+#userName{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
 
 #colorSearchResult{
     display: none;
 }
+*/
+
+
+/*
+#contactAddResult{
+    position: absolute;
+    z-index: 25;
+    margin-bottom: 9px;
+    width: 50%; 
+    font-size: 0.9em; 
+    text-align: center;
+    margin-bottom: 5%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    color: #95060a;
+    transition: opacity 1s;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 #colorAddResult{
     display: inline-block;
@@ -372,4 +975,4 @@ select{
     font-weight: 200;
     font-style: normal;
     color: #95060a;
-}
+} */

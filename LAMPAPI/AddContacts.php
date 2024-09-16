@@ -1,13 +1,26 @@
 
 <?php
+// Allow from any origin
+header("Access-Control-Allow-Origin: *");
+
+// Allow specific methods (GET, POST, etc.)
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+// Allow specific headers
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 	$inData = getRequestInfo();
 	
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
-        $phoneNumber = $inData["phoneNumber"];
-        $emailAddress = $inData["emailAddress"];
-        $userId = $inData["userId"];
+    $emailAddress = $inData["emailAddress"];
+    $phoneNumber = $inData["phoneNumber"];
+    $userId = $inData["userId"];
    
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	

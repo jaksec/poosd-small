@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>TechBase Login</title>
+	<title>TouchhBase Login</title>
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">	
@@ -40,15 +40,21 @@
             <img src="./images/TB.png" alt="centerimage">
         </a>
 	</div>
-<!-- MODIFIED INNER TITLE -BETSY -->
 	<div id="loginDiv">
-		<span id="inner-title">LOG IN</span>
+		<div class="inner-titleglow">
+			<div class="inner-title">
+				<span>LOG IN</span>
+			</div>
+		</div>
+		
 		<input type="text" id="loginName" placeholder="Username" /><br />
 		<input type="password" id="loginPassword" placeholder="Password"/><br />
-		<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
+		<div class="buttons-glow">
+			<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
+		</div>
 		<span id="loginResult"></span>
 	</div>
-
+	
 <script src="js/particles.js"></script>
 <script src="js/app.js"></script>
 </body>
