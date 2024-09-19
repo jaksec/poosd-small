@@ -260,5 +260,40 @@ function addContact() {
         document.getElementById("contactAddResult").innerHTML = err.message;
     }
 }
-/*-*******************************************************************/
 
+/*-*******************************************************************/
+// Show the password requirements when the user clicks/focuses on the password field
+function showPasswordRequirements() {
+    document.getElementById("passwordRequirements").style.display = "block";
+}
+
+// Validate the password as the user types
+function validatePassword() {
+    const password = document.getElementById("newPassword").value;
+
+    // Regular expressions to check the requirements
+    const hasNumber = /[0-9]/.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const charLength = password.length >= 8 && password.length <= 32;
+
+    // Update the password requirement list based on validation
+    updateRequirement("charLength", charLength);
+    updateRequirement("hasNumber", hasNumber);
+    updateRequirement("hasLetter", hasLetter);
+    updateRequirement("hasSpecialChar", hasSpecialChar);
+}
+
+// Function to update the requirements with a green check (valid) or red "X" (invalid)
+function updateRequirement(elementId, isValid) {
+    const element = document.getElementById(elementId);
+    if (isValid) {
+        element.classList.remove("invalid");
+        element.classList.add("valid");
+        element.innerHTML = `✔ ${element.innerHTML.slice(2)}`; // Replace the ❌ with ✔
+    } else {
+        element.classList.remove("valid");
+        element.classList.add("invalid");
+        element.innerHTML = `❌ ${element.innerHTML.slice(2)}`; // Replace the ✔ with ❌
+    }
+}

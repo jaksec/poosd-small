@@ -50,7 +50,17 @@
 		<input type="text" id="firstName" placeholder="First Name" /><br />
 		<input type="text" id="lastName" placeholder="Last Name"/><br/>
 		<input type="text" id="userloginName" placeholder="Username"/><br/>
-		<input type="password" id="newPassword" placeholder="Password"/><br/>
+
+		<input type="password" id="newPassword" placeholder="Password" onfocus="showPasswordRequirements()" oninput="validatePassword()"/><br />
+
+        <!-- Password requirements initially hidden -->
+        <ul id="passwordRequirements" style="display: none;">
+            <li id="charLength" class="invalid">❌ 8-32 characters</li>
+            <li id="hasNumber" class="invalid">❌ At least one number</li>
+            <li id="hasLetter" class="invalid">❌ At least one letter</li>
+            <li id="hasSpecialChar" class="invalid">❌ At least one special character</li>
+        </ul>
+		
 		<div class="buttons-su-glow">
 			<button type="buttons-su" class="buttons-su" onclick="Register();"> Do It </button>
 		</div>

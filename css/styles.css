@@ -899,6 +899,28 @@ select{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
     z-index: 10;
 }
+
+/* Styling for the password requirements */
+#passwordRequirements {
+    list-style-type: none;
+    padding-left: 0;
+    color: #f00;
+}
+
+#passwordRequirements li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Valid and invalid classes for checkmarks and X marks */
+.valid {
+    color: #28a745; /* Green color */
+}
+
+.invalid {
+    color: #dc3545; /* Red color */
+}
+
 /*
 #searchText
 {
