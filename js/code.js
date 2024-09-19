@@ -270,26 +270,30 @@ function showPasswordRequirements() {
 // Validate the password as the user types
 function validatePassword() {
     const password = document.getElementById("newPassword").value;
+
+    // Regular expressions to check the requirements
     const hasNumber = /[0-9]/.test(password);
     const hasLetter = /[a-zA-Z]/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const charLength = password.length >= 8 && password.length <= 32;
 
+    // Update the password requirement list based on validation
     updateRequirement("charLength", charLength);
     updateRequirement("hasNumber", hasNumber);
     updateRequirement("hasLetter", hasLetter);
     updateRequirement("hasSpecialChar", hasSpecialChar);
 }
 
+// Function to update the requirements with a green check (valid) or red "X" (invalid)
 function updateRequirement(elementId, isValid) {
     const element = document.getElementById(elementId);
     if (isValid) {
         element.classList.remove("invalid");
         element.classList.add("valid");
-        element.innerHTML = `<i class="fas fa-check" style="color: green;"></i> ${element.innerHTML.slice(2)}`;
+        element.innerHTML = `✔ ${element.innerHTML.slice(2)}`; // Replace the ❌ with ✔
     } else {
         element.classList.remove("valid");
         element.classList.add("invalid");
-        element.innerHTML = `<i class="fas fa-times" style="color: red;"></i> ${element.innerHTML.slice(2)}`;
+        element.innerHTML = `❌ ${element.innerHTML.slice(2)}`; // Replace the ✔ with ❌
     }
 }
