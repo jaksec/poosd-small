@@ -92,7 +92,9 @@ function Register() {
                     document.getElementById("registrationResult").innerHTML = "Registration successful!";
                     saveCookie();  // Optional if you want to save data in cookies
                     // You can redirect or move to a different page after successful registration
-                    window.location.href = "login.html"; // redirect back to login
+                    setTimeout(() => {
+						window.location.href = "login.html";// redirect back to login
+					}, 2000); // 2 second delay
                 }
             }
         };
