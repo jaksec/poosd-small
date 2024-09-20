@@ -89,12 +89,10 @@ function Register() {
                 if (jsonObject.Error) {
                     document.getElementById("registrationResult").innerHTML = jsonObject.Error;
                 } else {
-                    document.getElementById("registrationResult").innerHTML = "Registration successful!";
+                    document.getElementById("registrationResult").innerHTML = "";
                     saveCookie();  // Optional if you want to save data in cookies
                     // You can redirect or move to a different page after successful registration
-                    setTimeout(() => {
 						window.location.href = "login.html";// redirect back to login
-					}, 2000); // 2 second delay
                 }
             }
         };
