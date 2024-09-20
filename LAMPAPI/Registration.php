@@ -1,12 +1,34 @@
 <?php 
 
+// Allow from any origin
+header("Access-Control-Allow-Origin: *");
+
+// Allow specific methods (GET, POST, etc.)
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+// Allow specific headers
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+
 $inData = getRequestInfo();
 
-$firstName = $inData["firstName"];
-$lastName = $inData["lastName"];
-$username = $inData["username"];
-$password = $inData["password"];
+// Ensure the expected data is available
+$firstName = isset($inData["firstName"]) ? $inData["firstName"] : null;
+$lastName = isset($inData["lastName"]) ? $inData["lastName"] : null;
+$username = isset($inData["username"]) ? $inData["username"] : null;
+$password = isset($inData["password"]) ? $inData["password"] : null;
 
+// Check for required fields
+if (is_null($firstName) || is_null($lastName) || is_null($username) || is_null($password)) {
+    returnWithError("All fields are required.");
+    exit;
+}
 $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
 if ($conn->connect_error) {
@@ -15,7 +37,7 @@ if ($conn->connect_error) {
 else 
 {
     // Prepare and bind the select statement
-    $stmt = $conn->prepare("SELECT Username FROM Users WHERE Username = ?");
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
     $stmt->bind_param("s", $username); 
     $stmt->execute();
     $result = $stmt->get_result();
