@@ -1,19 +1,4 @@
-<?php 
-
-// Allow from any origin
-header("Access-Control-Allow-Origin: *");
-
-// Allow specific methods (GET, POST, etc.)
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-// Allow specific headers
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-
-// Handle preflight requests
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
+<?php
 
 
 $inData = getRequestInfo();
@@ -24,60 +9,50 @@ $lastName = isset($inData["lastName"]) ? $inData["lastName"] : null;
 $username = isset($inData["username"]) ? $inData["username"] : null;
 $password = isset($inData["password"]) ? $inData["password"] : null;
 
-// Check for required fields
-if (is_null($firstName) || is_null($lastName) || is_null($username) || is_null($password)) {
-    returnWithError("All fields are required.");
+// Check if all required fields are provided and not empty
+if (empty($firstName) || empty($lastName) || empty($username) || empty($password)) {
+    http_response_code(400);
     exit;
 }
+
 $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
+// Check for connection errors
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
-} 
-else 
-{
-    // Prepare and bind the select statement
+} else {
+    // Check if the username already exists
     $stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
-    $stmt->bind_param("s", $username); 
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
-
-    // Check if the username exists in the database
-    if ($result->num_rows > 0) 
-    {
-        // Username already exists
-        returnWithError("Sorry... Username is taken");
-    } 
-    else 
-    {
-        // Hash the password
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-        // Insert the new user into the database
+    $rows = $result->num_rows;
+    // If the username does not exist, continue to registration
+    if ($rows == 0) {
         $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $firstName, $lastName, $username, $passwordHash);
-        $stmt->execute();
+        $stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
 
-        // Get the new user's ID
-        $id = $conn->insert_id;
-
-        // Close the statement and connection
-        $stmt->close();
-        $conn->close();
-
-        // Return the user's info
-        returnWithInfo($firstName, $lastName, $id);
+        if ($stmt->execute()) {
+            $id = $conn->insert_id;
+            $stmt->close();
+            $conn->close();
+            http_response_code(200);
+            returnWithInfo($firstName, $lastName, $id);
+        } else {
+            returnWithError("Error inserting user: " . $stmt->error);
+        }
+    } else {
+        http_response_code(409); // username taken
+        returnWithError("Sorry...Username is taken");
     }
 }
-
-// Helper functions
 
 function getRequestInfo() {
     return json_decode(file_get_contents('php://input'), true);
 }
 
 function sendResultInfoAsJson($obj) {
-    header('Content-type: application/json');
+    header('Content-type:application/json');
     echo $obj;
 }
 
@@ -92,4 +67,3 @@ function returnWithInfo($firstName, $lastName, $id) {
 }
 
 ?>
-
