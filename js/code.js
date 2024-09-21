@@ -69,6 +69,18 @@ function Register() {
     let userloginName = document.getElementById("userloginName").value;
     let password = document.getElementById("newPassword").value;
 
+	// Front-end validation to ensure all fields are filled
+    if (firstName === "" || lastName === "" || userloginName === "" || password === "") {
+        document.getElementById("registrationResult").innerHTML = "Please fill in all fields.";
+        return; 
+    }
+	
+    // Validate password requirements before proceeding
+    if (!validatePassword()) {
+        document.getElementById("registrationResult").innerHTML = "";
+        return; 
+    }
+
     // Creating the request payload
     let e = { firstName: firstName, lastName: lastName, username: userloginName, password: password };
     let jsonPayload = JSON.stringify(e);
@@ -282,6 +294,9 @@ function validatePassword() {
     updateRequirement("hasNumber", hasNumber);
     updateRequirement("hasLetter", hasLetter);
     updateRequirement("hasSpecialChar", hasSpecialChar);
+
+	// Return true if all requirements are met, otherwise false
+    return charLength && hasNumber && hasLetter && hasSpecialChar;
 }
 
 // Function to update the requirements with a green check (valid) or red "X" (invalid)
