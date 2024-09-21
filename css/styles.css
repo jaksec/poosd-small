@@ -921,6 +921,78 @@ select{
     color: #dc3545; /* Red color */
 }
 
+/* STYLING CONTACT PAGE */
+/* Existing styles for the table and buttons */
+.table-container {
+    width: 100%;
+    margin-top: 180px; /* Make sure the table starts at the top of the white box */
+    height: 100%;
+    position: relative; /* Ensure it can be layered */
+    z-index: 9999; /* Set a higher z-index value to bring it to the front */
+    padding: 40px; 
+    /* Add some padding to prevent the table from touching the edges */
+    box-sizing: border-box; /* Include padding in the total width */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.actions .edit {
+    color: #4CAF50;
+    font-size: 20px;
+}
+
+.actions .delete {
+    color: #f44336;
+    font-size: 20px;
+}
+
+/* Add new styles for the white box */
+.white-box {
+    margin: 20px auto;
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    height: 600px;  /* Adjust this height to match the large white box on your page */
+    padding: 30px;  /* Adding padding to ensure space inside the white box */
+    position: relative; /* Ensure it's layered, but below the table */
+    z-index: 1; /* Lower z-index to make sure it's behind the table */
+    overflow: hidden; /* Ensures no content spills outside the white box */
+    box-sizing: border-box; /* Ensures padding is included in the width/height */
+}
+
 /*
 #searchText
 {

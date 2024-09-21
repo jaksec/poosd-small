@@ -252,13 +252,35 @@ function addContact() {
     try {
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "";
+                document.getElementById("contactAddResult").innerHTML = "Contact added successfully!";
+
+                // Dynamically add the contact to the table
+                addContactToTable(firstName, lastName, emailAddress, phoneNumber);
             }
         };
         xhr.send(jsonPayload);
     } catch (err) {
         document.getElementById("contactAddResult").innerHTML = err.message;
     }
+}
+
+function addContactToTable(firstName, lastName, emailAddress, phoneNumber) {
+    const tableBody = document.getElementById("contactTableBody");
+
+    let newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>${firstName}</td>
+        <td>${lastName}</td>
+        <td>${emailAddress}</td>
+        <td>${phoneNumber}</td>
+        <td class="actions">
+            <button class="edit">✏️</button>
+            <button class="delete">🗑️</button>
+        </td>
+    `;
+
+    tableBody.appendChild(newRow);
 }
 
 /*-*******************************************************************/
