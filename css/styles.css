@@ -22,8 +22,8 @@ html, body {
 
 .image-container {
     position: absolute;
-    top: 52%; /* Lowered the logo by adjusting the top property */
-    left: 6%;
+    top: 55%; /* Lowered the logo by adjusting the top property */
+    left: 50%;
     transform: translate(-50%, -50%);
     height: 100%; /* Correct height syntax */
     z-index: 9; /* Ensures the image stays above other elements */
@@ -32,52 +32,36 @@ html, body {
 .logo_name {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
-    transform: translate(50px, 215px);
+    transform: translate(900px, 250px);
     font-size: 25px;
 }
 
 .est {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    transform: translate(80px, 215px);
+    transform: translate(930px, 250px);
     font-size: 15px;   
 }
 
-.button_left {
-    transform: translate(-200px, 50px);
-    font-size: 40px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    z-index: 10;
-    display: inline-block;
-}
-
-.button_right {
-    transform: translate(200px, 110px);
-    font-size: 40px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-}
-
-.header a {
-    text-decoration: none;
-}
-
-a:hover {
-    color: blue;
+.welcome-msg {
+    transform: translate(675px, 275px);
+    font-size: 55px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
 }
 
 .header {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
     user-select: none;
+    transform: translate(0px, -100px);
 }
 
 .subheader {
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
     font-size: 25px;
-    transform: translate(0px, 10px);
+    transform: translate(0px, -90px);
     user-select: none;
 }
 
@@ -91,7 +75,7 @@ a:hover {
 
 #title {
     position: absolute;
-    top: 40%; /* Lowered the title to avoid it overlapping the image */
+    top: 60%; /* Lowered the title to avoid it overlapping the image */
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Poppins', sans-serif;
@@ -104,7 +88,21 @@ a:hover {
     z-index: 10; /* Increased z-index to ensure title appears above the image */
 }
 
-.about-us a {
+.center1 {
+    position: absolute;
+    top: -550px;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background-color: #599ad0;*/
+    z-index: 9;
+    width: 500px; /* Set a width to control the size */
+    padding: 10px;
+}
+
+a {
     color: black;
     text-decoration: none;
 }
@@ -113,17 +111,24 @@ a:hover {
     color: blue;
 }
 
-.about-us {
+.button_left {
+    transform: translate(-170px, 50px);
     font-family: 'Quicksand', sans-serif;
-    font-weight: 400;
-    transform: translate(800px, 350px);
+    font-weight: 500;
     font-size: 30px;
 }
 
-.center {
+.button_right {
+    transform: translate(170px, 50px);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.center2 {
     position: absolute;
-    top: 75px;
-    left: 85%;
+    top: 70%;
+    left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
