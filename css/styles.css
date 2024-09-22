@@ -1,7 +1,4 @@
-
-/*@media screen and (max-width: 320px)*/
 /*-*********************************BACKGROUND***********************************************-*/
-
 html, body {
     margin: 0;
     padding: 0;
@@ -11,7 +8,6 @@ html, body {
     position: relative;
 }
 
-
 #particles-js {
     position: absolute;
     top: 0;
@@ -20,147 +16,59 @@ html, body {
     height: 100%;
     z-index: 1;
 }
-
 /*-*********************************HOMEPAGE***********************************************-*/
-
 .image-container {
     position: absolute;
-    top: 55%; /* Lowered the logo by adjusting the top property */
+    top: 60%; /* Lowered the logo by adjusting the top property */
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 100%;
-    z-index: 9;
-}
-
-.logo_name {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    font-size: 1.5rem; /* Use rem instead of px */
-    position: absolute;
-    top: 10%; /* Adjusted to use relative positioning */
-    left: 10%;
-}
-
-.est {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 1rem; /* Use rem instead of px */
-    position: absolute;
-    top: 12%; /* Adjusted to use relative positioning */
-    left: 10%;
-}
-
-.welcome-msg {
-    font-size: 3.5rem; /* Use rem for scaling */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-}
-
-.header {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    user-select: none;
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2.5rem; /* Use rem */
-}
-
-.subheader {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 300;
-    font-size: 1.5rem;
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    user-select: none;
+    height: 100%; /* Correct height syntax */
+    z-index: 9; /* Ensures the image stays above other elements */
 }
 
 .image-container img {
-    max-height: 10rem; /* Adjusted to be responsive */
+    max-height: 200px;
     width: auto;
+    height: auto;
     display: block;
     z-index: 9;
 }
 
 #title {
     position: absolute;
-    top: 50%;
+    top: 40%; /* Lowered the title to avoid it overlapping the image */
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: 40px;
     letter-spacing: 1px;
     width: 100%;
     text-align: center;
     color: rgb(17, 14, 163);
-    z-index: 10;
+    z-index: 10; /* Increased z-index to ensure title appears above the image */
 }
 
-.center1 {
-    position: fixed; /* Fixed position to stay in the viewport */
-    top: -425px; /* Adjust to your desired distance from the top */
-    right: -100px; /* Adjust to your desired distance from the right */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9;
-    width: 30vw; /* Responsive width */
-    padding: 10px;
-    gap: 5%;
-}
-
-a {
-    color: black;
-    text-decoration: none;
-}
-
-a:hover {
-    color: blue;
-}
-
-.button_left {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    font-size: 1.5rem;
-    margin-right: 5%;
-}
-
-.button_right {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    font-size: 1.5rem;
-    margin-left: 5%;
-}
-
-.center2 {
+.center {
     position: absolute;
-    top: 70%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 70px;
     z-index: 9;
-    width: 30vw; /* Relative width for better scaling */
-    padding: 10px;
-    gap: 5%;
 }
 
 .L-buttonglow {
-    margin: 0;
-    height: 4rem; /* Use relative units */
-    width: 12.5rem;
+    position: relative;
+    margin: 50px;
+    height: 70px;
+    width: 220px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
-    position: relative;
 }
 
 .L-buttonglow button {
@@ -172,13 +80,14 @@ a:hover {
     color: #f2f2f2;
     border: none;
     outline: none;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 300;
-    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
-    height: 3.5rem;
-    width: 12rem;
+    height: 60px;
+    width: 210px;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -186,12 +95,12 @@ a:hover {
 }
 
 .S-buttonglow {
-    margin: 0;
-    height: 4rem;
-    width: 12.5rem;
+    position: relative;
+    margin: 50px;
+    height: 70px;
+    width: 220px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
-    position: relative;
 }
 
 .S-buttonglow button {
@@ -203,13 +112,14 @@ a:hover {
     color: #f2f2f2;
     border: none;
     outline: none;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 300;
-    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
-    height: 3.5rem;
-    width: 12rem;
+    height: 60px;
+    width: 210px;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -221,7 +131,6 @@ a:hover {
     color: rgb(17, 14, 163);     
     transition: all 0.3s ease-in-out;  
 }
-
 
 @keyframes rotate {
     0% {
@@ -252,6 +161,8 @@ a:hover {
     animation: rotate 1.5s linear infinite;
     animation: glowAnimation 1.5s infinite;
 }
+
+
 
 /*-*********************************LOGIN***********************************************-*/
 /* log in page box design */
@@ -285,6 +196,7 @@ input[type="text"],input[type="password"]{
 }
 #loginDiv
 {
+
     width: 33%;
     padding: 25px;
     background-color: rgba(0, 0, 0, 0.1);
@@ -298,6 +210,7 @@ input[type="text"],input[type="password"]{
     z-index: 10;
     margin-left: 30%;
     margin-top: 15%;
+    
 }
 .inner-titleglow {
     position: relative;
@@ -970,6 +883,22 @@ select{
     font-weight: 200;
     font-style: normal;
 }
+#accessUIDiv
+{
+    position: absolute;
+    top: 18%;
+    right: 5%;
+    width: 90%;
+    height: 800px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
+    z-index: 10;
+}
 
 /* Styling for the password requirements */
 #passwordRequirements {
@@ -992,104 +921,62 @@ select{
     color: #dc3545; /* Red color */
 }
 
-/* Main container */
-.main-container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Header */
-header {
-    position: relative;
-    z-index: 1; /* Lower z-index than the table */
-}
-
-.header h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    color: #333;
-}
-
-/* Form Container */
-.form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.form-container input {
-    display: block;
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.form-container button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
+/* STYLING CONTACT PAGE */
+/* Existing styles for the table and buttons */
 .table-container {
-    position: fixed;
-    padding-top: 100px; /* Adds space within the container */
-    margin-top: 180px; /* Adds space between the container and elements above it */
+    width: 100%;
+    margin-top: 20px; /* Reduce the margin to a smaller value */
+    height: auto;
+    position: relative;
+    z-index: 1; /* No need for an extremely high z-index */
+    padding: 20px; /* Add some padding if needed */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
 }
 
 th, td {
-    padding: 15px;
     text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
     font-family: 'Poppins', sans-serif;
+    font-weight: 300;
 }
 
 th {
     background-color: #f2f2f2;
+    color: black;
     font-size: 18px;
-    color: #333;
 }
 
 td {
     font-size: 16px;
-    color: #666;
-    border-bottom: 1px solid #ddd;
 }
 
-/* Buttons */
-button.edit {
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.actions .edit {
     color: #4CAF50;
-    border: none;
-    background: none;
-    cursor: pointer;
+    font-size: 20px;
 }
 
-button.delete {
+.actions .delete {
     color: #f44336;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-/* Remove the white box */
-.white-box {
-    display: none; /* or simply delete this block of code */
+    font-size: 20px;
 }
 
 /*
@@ -1131,6 +1018,27 @@ button.delete {
     color: #95060a;
     transition: opacity 1s;  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
