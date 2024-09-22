@@ -8,6 +8,7 @@ html, body {
     position: relative;
 }
 
+
 #particles-js {
     position: absolute;
     top: 0;
@@ -16,14 +17,52 @@ html, body {
     height: 100%;
     z-index: 1;
 }
+
 /*-*********************************HOMEPAGE***********************************************-*/
+
 .image-container {
     position: absolute;
-    top: 60%; /* Lowered the logo by adjusting the top property */
+    top: 55%; /* Lowered the logo by adjusting the top property */
     left: 50%;
     transform: translate(-50%, -50%);
     height: 100%; /* Correct height syntax */
     z-index: 9; /* Ensures the image stays above other elements */
+}
+
+.logo_name {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    transform: translate(900px, 250px);
+    font-size: 25px;
+}
+
+.est {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transform: translate(930px, 250px);
+    font-size: 15px;   
+}
+
+.welcome-msg {
+    transform: translate(675px, 275px);
+    font-size: 55px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}
+
+.header {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    user-select: none;
+    transform: translate(0px, -100px);
+}
+
+.subheader {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+    font-size: 25px;
+    transform: translate(0px, -90px);
+    user-select: none;
 }
 
 .image-container img {
@@ -36,7 +75,7 @@ html, body {
 
 #title {
     position: absolute;
-    top: 40%; /* Lowered the title to avoid it overlapping the image */
+    top: 60%; /* Lowered the title to avoid it overlapping the image */
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Poppins', sans-serif;
@@ -49,24 +88,63 @@ html, body {
     z-index: 10; /* Increased z-index to ensure title appears above the image */
 }
 
-.center {
+.center1 {
     position: absolute;
-    top: 60%;
+    top: -550px;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background-color: #599ad0;*/
+    z-index: 9;
+    width: 500px; /* Set a width to control the size */
+    padding: 10px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+}
+
+.button_left {
+    transform: translate(-170px, 50px);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.button_right {
+    transform: translate(170px, 50px);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.center2 {
+    position: absolute;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 70px;
+    /*background-color: #599ad0;*/
     z-index: 9;
+    width: 450px; /* Set a width to control the size */
+    padding: 10px;
 }
 
 .L-buttonglow {
-    position: relative;
-    margin: 50px;
+    margin: 0px;
     height: 70px;
-    width: 220px;
+    width: 260px;
+    margin-right: 10px;
+    margin-left: -1px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
 }
@@ -74,14 +152,14 @@ html, body {
 .L-buttonglow button {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     background: #111;
     color: #f2f2f2;
     border: none;
     outline: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
     font-size: 40px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -95,25 +173,27 @@ html, body {
 }
 
 .S-buttonglow {
-    position: relative;
-    margin: 50px;
+    margin: 0px;
     height: 70px;
-    width: 220px;
+    width: 260px;
+    margin-left: 5px;
+    margin-right: -2px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
+    box-sizing: border-box;
 }
 
 .S-buttonglow button {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 75%;
     transform: translate(-50%, -50%);
     background: #111;
     color: #f2f2f2;
     border: none;
     outline: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
     font-size: 40px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -162,8 +242,6 @@ html, body {
     animation: glowAnimation 1.5s infinite;
 }
 
-
-
 /*-*********************************LOGIN***********************************************-*/
 /* log in page box design */
 
@@ -196,7 +274,6 @@ input[type="text"],input[type="password"]{
 }
 #loginDiv
 {
-
     width: 33%;
     padding: 25px;
     background-color: rgba(0, 0, 0, 0.1);
@@ -210,7 +287,6 @@ input[type="text"],input[type="password"]{
     z-index: 10;
     margin-left: 30%;
     margin-top: 15%;
-    
 }
 .inner-titleglow {
     position: relative;
