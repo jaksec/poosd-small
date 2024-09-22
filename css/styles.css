@@ -1,4 +1,7 @@
+
+/*@media screen and (max-width: 320px)*/
 /*-*********************************BACKGROUND***********************************************-*/
+
 html, body {
     margin: 0;
     padding: 0;
@@ -25,81 +28,93 @@ html, body {
     top: 55%; /* Lowered the logo by adjusting the top property */
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 100%; /* Correct height syntax */
-    z-index: 9; /* Ensures the image stays above other elements */
+    height: 100%;
+    z-index: 9;
 }
 
 .logo_name {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
-    transform: translate(900px, 250px);
-    font-size: 25px;
+    font-size: 1.5rem; /* Use rem instead of px */
+    position: absolute;
+    top: 10%; /* Adjusted to use relative positioning */
+    left: 10%;
 }
 
 .est {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    transform: translate(930px, 250px);
-    font-size: 15px;   
+    font-size: 1rem; /* Use rem instead of px */
+    position: absolute;
+    top: 12%; /* Adjusted to use relative positioning */
+    left: 10%;
 }
 
 .welcome-msg {
-    transform: translate(675px, 275px);
-    font-size: 55px;
+    font-size: 3.5rem; /* Use rem for scaling */
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
 }
 
 .header {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
     user-select: none;
-    transform: translate(0px, -100px);
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem; /* Use rem */
 }
 
 .subheader {
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    font-size: 25px;
-    transform: translate(0px, -90px);
+    font-size: 1.5rem;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     user-select: none;
 }
 
 .image-container img {
-    max-height: 200px;
+    max-height: 10rem; /* Adjusted to be responsive */
     width: auto;
-    height: auto;
     display: block;
     z-index: 9;
 }
 
 #title {
     position: absolute;
-    top: 60%; /* Lowered the title to avoid it overlapping the image */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 40px;
+    font-size: 2rem;
     letter-spacing: 1px;
     width: 100%;
     text-align: center;
     color: rgb(17, 14, 163);
-    z-index: 10; /* Increased z-index to ensure title appears above the image */
+    z-index: 10;
 }
 
 .center1 {
-    position: absolute;
-    top: -550px;
-    left: 87%;
-    transform: translate(-50%, -50%);
+    position: fixed; /* Fixed position to stay in the viewport */
+    top: -425px; /* Adjust to your desired distance from the top */
+    right: -100px; /* Adjust to your desired distance from the right */
     display: flex;
     align-items: center;
     justify-content: center;
-    /*background-color: #599ad0;*/
     z-index: 9;
-    width: 500px; /* Set a width to control the size */
+    width: 30vw; /* Responsive width */
     padding: 10px;
+    gap: 5%;
 }
 
 a {
@@ -112,17 +127,17 @@ a:hover {
 }
 
 .button_left {
-    transform: translate(-170px, 50px);
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.5rem;
+    margin-right: 5%;
 }
 
 .button_right {
-    transform: translate(170px, 50px);
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.5rem;
+    margin-left: 5%;
 }
 
 .center2 {
@@ -133,26 +148,25 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    /*background-color: #599ad0;*/
     z-index: 9;
-    width: 450px; /* Set a width to control the size */
+    width: 30vw; /* Relative width for better scaling */
     padding: 10px;
+    gap: 5%;
 }
 
 .L-buttonglow {
-    margin: 0px;
-    height: 70px;
-    width: 260px;
-    margin-right: 10px;
-    margin-left: -1px;
+    margin: 0;
+    height: 4rem; /* Use relative units */
+    width: 12.5rem;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
+    position: relative;
 }
 
 .L-buttonglow button {
     position: absolute;
     top: 50%;
-    left: 25%;
+    left: 50%;
     transform: translate(-50%, -50%);
     background: #111;
     color: #f2f2f2;
@@ -160,12 +174,11 @@ a:hover {
     outline: none;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    font-size: 40px;
-    letter-spacing: 1px;
+    font-size: 2rem;
     text-transform: uppercase;
     cursor: pointer;
-    height: 60px;
-    width: 210px;
+    height: 3.5rem;
+    width: 12rem;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -173,20 +186,18 @@ a:hover {
 }
 
 .S-buttonglow {
-    margin: 0px;
-    height: 70px;
-    width: 260px;
-    margin-left: 5px;
-    margin-right: -2px;
+    margin: 0;
+    height: 4rem;
+    width: 12.5rem;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
-    box-sizing: border-box;
+    position: relative;
 }
 
 .S-buttonglow button {
     position: absolute;
     top: 50%;
-    left: 75%;
+    left: 50%;
     transform: translate(-50%, -50%);
     background: #111;
     color: #f2f2f2;
@@ -194,12 +205,11 @@ a:hover {
     outline: none;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    font-size: 40px;
-    letter-spacing: 1px;
+    font-size: 2rem;
     text-transform: uppercase;
     cursor: pointer;
-    height: 60px;
-    width: 210px;
+    height: 3.5rem;
+    width: 12rem;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -211,6 +221,7 @@ a:hover {
     color: rgb(17, 14, 163);     
     transition: all 0.3s ease-in-out;  
 }
+
 
 @keyframes rotate {
     0% {
@@ -1108,27 +1119,6 @@ td {
     color: #95060a;
     transition: opacity 1s;  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
