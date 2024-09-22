@@ -73,7 +73,7 @@
 		<input type="text" id="last-Name" placeholder="Last Name" required>
 		<input type="text" id="emailAddress" placeholder="Email Address" required>
 		<input type="text" id="phoneNumber" placeholder="Phone Number" required>
-		<input type="text" id="userId" placeholder="User ID">
+		<!-- <input type="text" id="userId" placeholder="User ID"> -->
 	
 		<button type="button"  onclick="onclickAdd()">
 			<i class="fas fa-check"></i>
@@ -81,27 +81,23 @@
 		<div id="contactAddResult"></div>
 	</div>
 
-	<div class="table-container">
-		<table>
-			<thead>
-				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody id="contactTableBody">
-				<!-- Dynamic content goes here -->
-			</tbody>
-		</table>
-	</div>
-	
-	<div id="accessUIDiv">
-	
-	</div>
-
+	<!-- Table to Display Contacts -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="contactTableBody">
+                <!-- New contacts will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
 
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function(){

@@ -970,22 +970,6 @@ select{
     font-weight: 200;
     font-style: normal;
 }
-#accessUIDiv
-{
-    position: absolute;
-    top: 18%;
-    right: 5%;
-    width: 90%;
-    height: 800px;
-    background-color: white;
-    border-radius: 50px;
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; 
-    justify-content: space-between; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
-    z-index: 10;
-}
 
 /* Styling for the password requirements */
 #passwordRequirements {
@@ -1008,76 +992,104 @@ select{
     color: #dc3545; /* Red color */
 }
 
-/* STYLING CONTACT PAGE */
-/* Existing styles for the table and buttons */
-.table-container {
-    width: 100%;
-    margin-top: 180px; /* Make sure the table starts at the top of the white box */
-    height: 100%;
-    position: relative; /* Ensure it can be layered */
-    z-index: 9999; /* Set a higher z-index value to bring it to the front */
-    padding: 40px; 
-    /* Add some padding to prevent the table from touching the edges */
-    box-sizing: border-box; /* Include padding in the total width */
+/* Main container */
+.main-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+/* Header */
+header {
+    position: relative;
+    z-index: 1; /* Lower z-index than the table */
+}
+
+.header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    color: #333;
+}
+
+/* Form Container */
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-container input {
+    display: block;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-container {
+    position: fixed;
+    padding-top: 100px; /* Adds space within the container */
+    margin-top: 180px; /* Adds space between the container and elements above it */
+}
+
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
+    padding: 15px;
     text-align: left;
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
     font-family: 'Poppins', sans-serif;
-    font-weight: 300;
 }
 
 th {
     background-color: #f2f2f2;
     font-size: 18px;
+    color: #333;
 }
 
 td {
     font-size: 16px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
 }
 
-.actions {
-    display: flex;
-    gap: 10px;
-}
-
-.actions button {
-    background: none;
+/* Buttons */
+button.edit {
+    color: #4CAF50;
     border: none;
+    background: none;
     cursor: pointer;
 }
 
-.actions .edit {
-    color: #4CAF50;
-    font-size: 20px;
-}
-
-.actions .delete {
+button.delete {
     color: #f44336;
-    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
-/* Add new styles for the white box */
+/* Remove the white box */
 .white-box {
-    margin: 20px auto;
-    width: 80%;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    height: 600px;  /* Adjust this height to match the large white box on your page */
-    padding: 30px;  /* Adding padding to ensure space inside the white box */
-    position: relative; /* Ensure it's layered, but below the table */
-    z-index: 1; /* Lower z-index to make sure it's behind the table */
-    overflow: hidden; /* Ensures no content spills outside the white box */
-    box-sizing: border-box; /* Ensures padding is included in the width/height */
+    display: none; /* or simply delete this block of code */
 }
 
 /*

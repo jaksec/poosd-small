@@ -173,49 +173,43 @@ function doLogout()
 /*-******************************SEARCH FOR CONTACT***********************************-*/
 
 
-function searchContact()
-{
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("contactSearchResult").innerHTML = "";
-	
-	let contactList = "";
+function searchContact() {
+    let srch = document.getElementById("searchText").value;
+    document.getElementById("contactSearchResult").innerHTML = "";
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+    let contactList = "";
 
-	let url = urlBase + '/SearchContacts.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					conrtactList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}
-	
+    // Assuming userId is stored in cookies or globally
+    let userId = getUserIdFromCookie(); // Implement this function or access the cookie directly
+
+    let tmp = { search: srch, userId: userId }; // Make sure to include userId in the request
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/SearchContacts.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                for (let i = 0; i < jsonObject.results.length; i++) {
+                    contactList += jsonObject.results[i];
+                    if (i < jsonObject.results.length - 1) {
+                        contactList += "<br />\r\n";
+                    }
+                }
+
+                document.getElementsByTagName("p")[0].innerHTML = contactList;
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("contactSearchResult").innerHTML = err.message;
+    }
 }
 /*-************************************ADD CONTACTS**************************************-*/
 function showForm() {
@@ -236,19 +230,32 @@ function clearForm() {
 }
 
 function onclickAdd() {
-    addContact();
-    clearForm(); // Clear the form fields
-    var form = document.getElementById("contactForm");
-    form.style.display = "none"; // Hide the form after adding a contact
+    const firstName = document.getElementById("first-Name").value;
+    const lastName = document.getElementById("last-Name").value;
+    const emailAddress = document.getElementById("emailAddress").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+
+    if (firstName && lastName && emailAddress && phoneNumber) {
+        // Add contact to the table and save in localStorage
+        addContactToTable(firstName, lastName, emailAddress, phoneNumber);
+        saveContact(firstName, lastName, emailAddress, phoneNumber);
+
+        // Reset the form and hide it after submission
+        clearForm();
+        document.getElementById("contactForm").style.display = "none";
+    } else {
+        alert("Please fill out all fields");
+    }
 }
 
 function addContact() {
-   
     let firstName = document.getElementById('first-Name').value;
     let lastName = document.getElementById('last-Name').value;
     let emailAddress = document.getElementById('emailAddress').value;
     let phoneNumber = document.getElementById('phoneNumber').value;
-    let userId = document.getElementById('userId').value;
+    
+    // Assuming userId is stored in cookies or globally
+    let userId = getUserIdFromCookie(); // Implement this function or access the cookie directly
 
     document.getElementById("contactAddResult").innerHTML = "";
 
@@ -266,7 +273,7 @@ function addContact() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("contactAddResult").innerHTML = "Contact added successfully!";
 
-                // Dynamically add the contact to the table
+                // Dynamically add the contact to the table (optionally, only if server-side insert was successful)
                 addContactToTable(firstName, lastName, emailAddress, phoneNumber);
             }
         };
@@ -274,25 +281,6 @@ function addContact() {
     } catch (err) {
         document.getElementById("contactAddResult").innerHTML = err.message;
     }
-}
-
-function addContactToTable(firstName, lastName, emailAddress, phoneNumber) {
-    const tableBody = document.getElementById("contactTableBody");
-
-    let newRow = document.createElement("tr");
-
-    newRow.innerHTML = `
-        <td>${firstName}</td>
-        <td>${lastName}</td>
-        <td>${emailAddress}</td>
-        <td>${phoneNumber}</td>
-        <td class="actions">
-            <button class="edit">✏️</button>
-            <button class="delete">🗑️</button>
-        </td>
-    `;
-
-    tableBody.appendChild(newRow);
 }
 
 /*-*******************************************************************/
@@ -332,5 +320,145 @@ function updateRequirement(elementId, isValid) {
         element.classList.remove("valid");
         element.classList.add("invalid");
         element.innerHTML = `❌ ${element.innerHTML.slice(2)}`; // Replace the ✔ with ❌
+    }
+}
+
+// Save contact 
+
+// Add Contact Function
+
+function addContactToTable(firstName, lastName, email, phone) {
+    const tableBody = document.getElementById("contactTableBody");
+    const newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>${firstName}</td>
+        <td>${lastName}</td>
+        <td>${email}</td>
+        <td>${phone}</td>
+        <td>
+            <button class="edit">✏️</button>
+            <button class="delete">🗑️</button>
+        </td>
+    `;
+    
+    tableBody.appendChild(newRow);
+
+    // Add functionality to newly added buttons
+    addDeleteFunctionality();
+    addEditFunctionality();
+}
+
+// Save contact in local storage
+function saveContact(firstName, lastName, emailAddress, phoneNumber) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts.push({ firstName, lastName, emailAddress, phoneNumber });
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+// Load contacts from local storage on page load
+window.addEventListener("load", function() {
+    const savedContacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    savedContacts.forEach(contact => {
+        addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+    });
+});
+
+// Delete contact from local storage
+function deleteContact(firstName, lastName, emailAddress, phoneNumber) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts = contacts.filter(contact => 
+        contact.firstName !== firstName || 
+        contact.lastName !== lastName || 
+        contact.emailAddress !== emailAddress || 
+        contact.phoneNumber !== phoneNumber
+    );
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+// Function to handle delete button
+function addDeleteFunctionality() {
+    const deleteButtons = document.querySelectorAll(".delete");
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            this.parentElement.parentElement.remove(); // Remove the row from the table
+
+            // Optionally: If using localStorage, remove the contact from there as well
+            let contactRow = this.parentElement.parentElement;
+            let firstName = contactRow.cells[0].textContent;
+            let lastName = contactRow.cells[1].textContent;
+            removeContactFromLocalStorage(firstName, lastName);
+        });
+    });
+}
+
+// Remove from localStorage function (optional if you're storing contacts in localStorage)
+function removeContactFromLocalStorage(firstName, lastName) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts = contacts.filter(contact => contact.firstName !== firstName && contact.lastName !== lastName);
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+// Function to handle edit button
+function addEditFunctionality() {
+    const editButtons = document.querySelectorAll(".edit");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Get the current row data
+            let contactRow = this.parentElement.parentElement;
+            let firstName = contactRow.cells[0].textContent;
+            let lastName = contactRow.cells[1].textContent;
+            let email = contactRow.cells[2].textContent;
+            let phone = contactRow.cells[3].textContent;
+
+            // Populate the form with current contact info
+            document.getElementById('first-Name').value = firstName;
+            document.getElementById('last-Name').value = lastName;
+            document.getElementById('emailAddress').value = email;
+            document.getElementById('phoneNumber').value = phone;
+
+            // Show the form to edit
+            document.getElementById("contactForm").style.display = "block";
+
+            // Update the contact on form submission
+            document.getElementById("contactForm").onsubmit = function (event) {
+                event.preventDefault();
+                
+                // Get updated values from form
+                let updatedFirstName = document.getElementById('first-Name').value;
+                let updatedLastName = document.getElementById('last-Name').value;
+                let updatedEmail = document.getElementById('emailAddress').value;
+                let updatedPhone = document.getElementById('phoneNumber').value;
+
+                // Update the table row with the new values
+                contactRow.cells[0].textContent = updatedFirstName;
+                contactRow.cells[1].textContent = updatedLastName;
+                contactRow.cells[2].textContent = updatedEmail;
+                contactRow.cells[3].textContent = updatedPhone;
+
+                // Optionally: If using localStorage, update the contact there as well
+                updateContactInLocalStorage(firstName, lastName, updatedFirstName, updatedLastName, updatedEmail, updatedPhone);
+
+                // Hide the form after updating
+                document.getElementById("contactForm").style.display = "none";
+            };
+        });
+    });
+}
+
+// Function to update contact in localStorage (optional)
+function updateContactInLocalStorage(oldFirstName, oldLastName, newFirstName, newLastName, newEmail, newPhone) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    let contactIndex = contacts.findIndex(contact => contact.firstName === oldFirstName && contact.lastName === oldLastName);
+    if (contactIndex !== -1) {
+        contacts[contactIndex] = {
+            firstName: newFirstName,
+            lastName: newLastName,
+            email: newEmail,
+            phone: newPhone
+        };
+        localStorage.setItem("contacts", JSON.stringify(contacts));
     }
 }
