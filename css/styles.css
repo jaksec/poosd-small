@@ -1093,6 +1093,7 @@ td{
     
     text-align: center;
     z-index: 25;
+    border: transparent;
 }
 .BR img{
     margin-top: 5%;
