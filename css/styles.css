@@ -33,46 +33,100 @@ html, body {
     display: block;
     z-index: 9;
 }
+.center1 {
+    position: fixed; /* Fixed position to stay in the viewport */
+    top: 5%; /* Adjust to your desired distance from the top */
+    right: 1%; /* Adjust to your desired distance from the right */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+    width: 30vw; /* Responsive width */
+    padding: 10px;
+    gap: 5%;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    z-index: 10;
+}
 
-#title {
-    position: absolute;
-    top: 40%; /* Lowered the title to avoid it overlapping the image */
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+}
+
+.welcome-msg {
+    position:absolute;
+    top: 40%;
+    font-size: 3.5rem; /* Use rem for scaling */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 40px;
-    letter-spacing: 1px;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 10;
+}
+
+#header {
+    position: absolute;
+    top: 52%; /* Lowered the title to avoid it overlapping the image */
+    left: 50%;
+    transform: translate(-50%);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 450;
+    letter-spacing: 0.5px;
+    width: 100%;
+    text-align: center;
+    color: rgb(17, 14, 163);
+    z-index: 12; 
+    font-size: 2rem;
+}
+
+#subheader {
+    position: absolute;
+    top: 58%; /* Lowered the title to avoid it overlapping the image */
+    left: 50%;
+    transform: translate(-50%);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
     width: 100%;
     text-align: center;
     color: rgb(17, 14, 163);
     z-index: 10; /* Increased z-index to ensure title appears above the image */
 }
-
 .center {
-    position: absolute;
-    top: 60%;
+    position: relative;
+    top: 73%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    height: 80px;
+    width: 700px;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
     border-radius: 70px;
     z-index: 9;
+    
 }
 
 .L-buttonglow {
     position: relative;
     margin: 50px;
     height: 70px;
-    width: 220px;
+    width: 210px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
+    animation: rotate 2.5s linear infinite;
+    
 }
 
 .L-buttonglow button {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -81,30 +135,33 @@ html, body {
     border: none;
     outline: none;
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 40px;
     letter-spacing: 1px;
+    font-size: 2rem;
+    font-weight: 400;
     text-transform: uppercase;
-    cursor: pointer;
+    cursor: pointer;    
     height: 60px;
-    width: 210px;
+    width: 200px;
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: glowAnimation 1.5s linear infinite;
 }
 
 .S-buttonglow {
     position: relative;
     margin: 50px;
     height: 70px;
-    width: 220px;
+    width: 210px;
     background: radial-gradient(blue, cyan, blue);
     border-radius: 50px;
+    animation: rotate 2.5s linear infinite;
+    
 }
 
 .S-buttonglow button {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -114,29 +171,31 @@ html, body {
     outline: none;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    font-size: 40px;
+    font-size: 2rem;
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
     height: 60px;
-    width: 210px;
+    width: 200px;
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: glowAnimation 1.5s linear infinite;
 }
 
 .L-buttonglow button:hover, .S-buttonglow button:hover {
     background: #f2f2f2; 
     color: rgb(17, 14, 163);     
     transition: all 0.3s ease-in-out;  
+
 }
 
 @keyframes rotate {
-    0% {
+    0%{
         filter: hue-rotate(-320deg);
-    }
-    100% {
+    } 
+    100%{
         filter: hue-rotate(-360deg);
     }
 }
@@ -150,16 +209,6 @@ html, body {
     100% {
         text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
     }
-}
-
-.button {
-    animation: rotate 1.5s linear infinite;
-    animation: glowAnimation 1.5s infinite;
-}
-
-.subutton {
-    animation: rotate 1.5s linear infinite;
-    animation: glowAnimation 1.5s infinite;
 }
 
 
@@ -209,7 +258,7 @@ input[type="text"],input[type="password"]{
     height: auto; /* allow for content */
     z-index: 10;
     margin-left: 30%;
-    margin-top: 15%;
+    margin-top: 10%;
     
 }
 .inner-titleglow {
@@ -348,7 +397,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Poppins', sans-serif;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     margin-top: 20px;
     color: #95060a;
@@ -558,7 +607,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Poppins', sans-serif;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     margin-top: 20px;
     color: #95060a;
@@ -978,6 +1027,109 @@ td {
     color: #f44336;
     font-size: 20px;
 }
+
+/********************************ABOUT US*********************************************/
+
+#aboutUsDiv
+{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 90%;
+    height: 90px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row; /* Stack children vertically */
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */   
+    z-index: 10;
+
+    
+}
+
+.teammessage {
+    position: absolute;
+    top: 9%; /* Adjust the top value as needed */
+    left: 9%; /* Adjust the left value as needed */
+    width: auto;
+    font-family: 'Quicksand' ,sans-serif; /* Adjust the width based on the content */
+    font-size: 50px; /* Adjust the size as needed */
+    font-weight: 800;
+    color: #599ad0;
+    z-index: 17; /* Ensure it appears above other elements */
+    white-space: nowrap;
+}
+.image-container-aboutus {
+    position: absolute;
+    height: 100%; /* Correct height syntax */
+    margin-left: 4%;
+    margin-top: 4%;
+    z-index: 9;
+}
+
+.image-container-aboutus img {
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    display: block;
+    z-index: 9;
+}
+
+
+table{
+    width: 90%;
+    margin-top: 10%; 
+    margin-inline: auto;
+    border-collapse: collapse;
+    grid-template-rows: 5px 5px;
+    background-color: rgba(255, 255, 255);
+    border-radius: 25px;
+    z-index: 25;
+    position: relative;
+}
+td{
+    
+    text-align: center;
+    z-index: 25;
+}
+.BR img{
+    margin-top: 5%;
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+.MM img{
+    margin-top: 5%;
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+.ND img{
+    margin-top: 5%;
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+.BV img{
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+.CJ img{
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+.CB img{
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+
+
+
 
 /*
 #searchText
