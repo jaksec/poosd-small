@@ -177,45 +177,33 @@ function doLogout()
 }
 /*-******************************SEARCH FOR CONTACT***********************************-*/
 
-
 function searchContact() {
-    let srch = document.getElementById("searchText").value;
-    document.getElementById("contactSearchResult").innerHTML = "";
-
-    let contactList = "";
-
-    // Assuming userId is stored in cookies or globally
-    let userId = getUserIdFromCookie(); // Implement this function or access the cookie directly
-
-    let tmp = { search: srch, userId: userId }; // Make sure to include userId in the request
-    let jsonPayload = JSON.stringify(tmp);
-
-    let url = urlBase + '/SearchContacts.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                for (let i = 0; i < jsonObject.results.length; i++) {
-                    contactList += jsonObject.results[i];
-                    if (i < jsonObject.results.length - 1) {
-                        contactList += "<br />\r\n";
-                    }
-                }
-
-                document.getElementsByTagName("p")[0].innerHTML = contactList;
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        document.getElementById("contactSearchResult").innerHTML = err.message;
+    let srch = document.getElementById("searchText").value.toLowerCase().trim();
+    // Clear the table body
+    const tableBody = document.getElementById("contactTableBody");
+    tableBody.innerHTML = "";
+    
+    // Get contacts from localStorage
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    
+    // If search text is empty, display all contacts
+    if (srch === "") {
+        contacts.forEach(contact => {
+            addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+        });
+    } else {
+        // Filter contacts where first name starts with search text
+        let filteredContacts = contacts.filter(contact => {
+            return contact.firstName.toLowerCase().startsWith(srch);
+        });
+        
+        // Add the filtered contacts to the table
+        filteredContacts.forEach(contact => {
+            addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+        });
     }
 }
+
 /*-************************************ADD CONTACTS**************************************-*/
 function showForm() {
     // Toggle the display of the form
@@ -336,22 +324,32 @@ function addContactToTable(firstName, lastName, email, phone) {
     const tableBody = document.getElementById("contactTableBody");
     const newRow = document.createElement("tr");
 
-    newRow.innerHTML = `
-        <td>${firstName}</td>
+    newRow.innerHTML = 
+        `<td>${firstName}</td>
         <td>${lastName}</td>
         <td>${email}</td>
         <td>${phone}</td>
         <td>
             <button class="edit"><i class="fa-solid fa-user-pen"></i></button>
             <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
-        </td>
-    `;
+        </td>`;
     
     tableBody.appendChild(newRow);
 
-    // Add functionality to newly added buttons
-    addDeleteFunctionality();
-    addEditFunctionality();
+    // Add functionality to the newly added buttons
+    const editButton = newRow.querySelector('.edit');
+    const deleteButton = newRow.querySelector('.delete');
+
+    editButton.addEventListener('click', function () {
+        // Your edit functionality here
+    });
+
+    deleteButton.addEventListener('click', function () {
+        // Remove the row from the table
+        tableBody.removeChild(newRow);
+        // Remove the contact from localStorage
+        removeContactFromLocalStorage(firstName, lastName);
+    });
 }
 
 // Save contact in local storage
