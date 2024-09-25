@@ -97,14 +97,19 @@ function Register() {
                 // Parse the server response
                 let jsonObject = JSON.parse(xhr.responseText);
 
-                // Check for errors in the response
                 if (jsonObject.Error) {
                     document.getElementById("registrationResult").innerHTML = jsonObject.Error;
                 } else {
-                    document.getElementById("registrationResult").innerHTML = "";
-                    saveCookie();  // Optional if you want to save data in cookies
-                    // You can redirect or move to a different page after successful registration
-						window.location.href = "login.html";// redirect back to login
+                    // Clear the form
+                    document.getElementById("firstName").value = "";
+                    document.getElementById("lastName").value = "";
+                    document.getElementById("userloginName").value = "";
+                    document.getElementById("newPassword").value = "";
+                
+                    // Inform the user of successful registration
+                    document.getElementById("registrationResult").innerHTML = "Registration successful!";
+                    saveCookie(); // Optional
+                    window.location.href = "login.html"; // Redirect
                 }
             }
         };
@@ -337,8 +342,8 @@ function addContactToTable(firstName, lastName, email, phone) {
         <td>${email}</td>
         <td>${phone}</td>
         <td>
-            <button class="edit">✏️</button>
-            <button class="delete">🗑️</button>
+            <button class="edit"><i class="fa-solid fa-user-pen"></i></button>
+            <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
         </td>
     `;
     

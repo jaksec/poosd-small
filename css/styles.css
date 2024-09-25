@@ -48,6 +48,7 @@ html, body {
     font-weight: 600;
     font-size: 1.2rem;
     z-index: 10;
+    white-space: nowrap;
 }
 
 a {
@@ -68,6 +69,9 @@ a:hover {
     left: 50%;
     transform: translateX(-50%); /* Center horizontally */
     z-index: 10;
+    text-align: center;
+    white-space: nowrap;
+    
 }
 
 #header {
@@ -83,6 +87,8 @@ a:hover {
     color: rgb(17, 14, 163);
     z-index: 12; 
     font-size: 2rem;
+    white-space: nowrap;
+    
 }
 
 #subheader {
@@ -98,6 +104,8 @@ a:hover {
     text-align: center;
     color: rgb(17, 14, 163);
     z-index: 10; /* Increased z-index to ensure title appears above the image */
+    white-space: nowrap;
+  
 }
 .center {
     position: relative;
@@ -439,7 +447,7 @@ input[type="text"],input[type="password"]{
 {
 
     width: 33%;
-    padding: 25px;
+    padding: 5px;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 25px;
     display: flex;
@@ -448,9 +456,9 @@ input[type="text"],input[type="password"]{
     justify-content: space-around; 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
     height: auto; /* allow for content */
-    z-index: 10;
+    z-index: 20;
     margin-left: 30%;
-    margin-top: 8%;
+    margin-top: 5%;
     
 }
 .innersu-titleglow {
@@ -463,7 +471,7 @@ input[type="text"],input[type="password"]{
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 20;
 }
 
 .innersu-title {
@@ -482,7 +490,7 @@ input[type="text"],input[type="password"]{
     text-transform: uppercase;
     outline: none;
     border: none;
-    z-index: 10;
+    z-index: 20;
 }
 
 @keyframes glowAnimation {
@@ -522,7 +530,7 @@ input[type="text"],input[type="password"]{
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 20;
 }
 .buttons-su
 {
@@ -541,7 +549,7 @@ input[type="text"],input[type="password"]{
     text-transform: uppercase;
     outline: none;
     border: none;
-    z-index: 10;
+    z-index: 20;
 }
 
 .buttons-su:hover{
@@ -569,7 +577,7 @@ input[type="text"],input[type="password"]{
     color:black;
     background-color: rgba(245,245,245,0.3);
     border: #f2f2f2;
-    z-index: 10;
+    z-index: 20;
 }
 #lastName
 {
@@ -578,7 +586,7 @@ input[type="text"],input[type="password"]{
     color: black;
     background-color: rgba(245,245,245,0.3);
     border: #f2f2f2;
-    z-index: 10;
+    z-index: 20;
 }
 #userloginName
 {
@@ -587,7 +595,7 @@ input[type="text"],input[type="password"]{
     color:black;
     background-color: rgba(245,245,245,0.3);
     border: #f2f2f2;
-    z-index: 10;
+    z-index: 20;
 }
 #newPassword
 {
@@ -596,7 +604,7 @@ input[type="text"],input[type="password"]{
     color: black;
     background-color: rgba(245,245,245,0.3);
     border: #f2f2f2;
-    z-index: 10;
+    z-index: 20;
 }
 
 #registrationResult{
@@ -612,6 +620,7 @@ input[type="text"],input[type="password"]{
     margin-top: 20px;
     color: #95060a;
     transition: opacity 1s; 
+    z-index: 20;
 }
 
 .fadeIn {

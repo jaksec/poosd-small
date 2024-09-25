@@ -1,78 +1,80 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>TechBase Login</title>
-	<!-- <meta charset="UTF-8"> -->
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,500&display=swap" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TouchBase</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-	<div id="particles-js"></div>
-	 
-	<style>
-		.circular-button {
-			display: inline-block;
-			width: 140px;
-			height: 140px;
-			border-radius: 50%;
-			overflow: hidden;
-			border: none;
-			padding: 0;
-			margin: 0;
-			z-index: 9;
-		}
+    <div id="particles-js"></div>
 
-		.circular-button img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			z-index: 9;
-		}
+    <style>
+        .circular-button {
+            display: inline-block;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: none;
+            padding: 0;
+            margin: 0;
+            z-index: 9;
+        }
 
-		.circular-button:focus {
-			outline: black;
-		}
-	</style>
+        .circular-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 9;
+        }
 
-	<div class="image-container-signup">
+        .circular-button:focus {
+            outline: black;
+        }
+    </style>
+
+    <div class="image-container-signup">
         <a href="index.html" class="circular-button">
             <img src="./images/TB.png" alt="centerimage">
         </a>
-	</div>
-	<div id="signupDiv">
-		<div class="innersu-titleglow">
-			<div class="innersu-title">
-				<span>SIGN UP</span>
-			</div>
-		</div>
-		
-		<input type="text" id="firstName" placeholder="First Name" /><br />
-		<input type="text" id="lastName" placeholder="Last Name"/><br/>
-		<input type="text" id="userloginName" placeholder="Username"/><br/>
+    </div>
 
-		<input type="password" id="newPassword" placeholder="Password" onfocus="showPasswordRequirements()" oninput="validatePassword()"/><br />
+    <div id="signupDiv">
+        <div class="innersu-titleglow">
+            <div class="innersu-title">
+                <span>SIGN UP</span>
+            </div>
+        </div>
+
+        <input type="text" id="firstName" placeholder="First Name" /><br />
+        <input type="text" id="lastName" placeholder="Last Name"/><br/>
+        <input type="text" id="userloginName" placeholder="Username"/><br/>
+
+        <input type="password" id="newPassword" placeholder="Password" onfocus="showPasswordRequirements()" oninput="validatePassword()"/><br />
 
         <!-- Password requirements initially hidden -->
         <ul id="passwordRequirements" style="display: none;">
-            <li id="charLength" class="invalid">❌ 8-32 characters</li>
-            <li id="hasNumber" class="invalid">❌ At least one number</li>
-            <li id="hasLetter" class="invalid">❌ At least one letter</li>
-            <li id="hasSpecialChar" class="invalid">❌ At least one special character</li>
+            <li id="charLength" class="invalid">&#10060; 8-32 characters</li>
+            <li id="hasNumber" class="invalid">&#10060; At least one number</li>
+            <li id="hasLetter" class="invalid">&#10060; At least one letter</li>
+            <li id="hasSpecialChar" class="invalid">&#10060; At least one special character</li>
         </ul>
 
-		<div class="buttons-su-glow">
-			<button type="buttons-su" class="buttons-su" onclick="Register();"> Do It </button>
-		</div>
-		<span id="registrationResult"></span>
-	</div>
+        <div class="buttons-su-glow">
+            <button type="button" class="buttons-su" onclick="Register();"> Do It </button>
+        </div>
+        <span id="registrationResult"></span>
+    </div>
 
-<script src="js/particles.js"></script>
-<script src="js/app.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
