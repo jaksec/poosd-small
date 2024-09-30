@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let userContacts = [];
 
 
 //- *********************JS for LOGIN PAGE***************************************
@@ -18,7 +19,7 @@ function doLogin()
 //	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
-
+  
 	let tmp = {username:login,password:password}; 
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
@@ -61,7 +62,39 @@ function doLogin()
 }
 
 //- *********************JS for SIGNUP PAGE***************************************
+// Function to update requirement indicators
+function updateRequirement(elementId, isValid) {
+    const element = document.getElementById(elementId);
+    const text = element.getAttribute("data-text"); // Static text for the rule
 
+    element.classList.toggle("valid", isValid);   // Add 'valid' class if true
+    element.classList.toggle("invalid", !isValid); // Add 'invalid' class if false
+
+    element.innerHTML = `<i class="fas fa-${isValid ? 'check' : 'times'}"></i> ${text}`;
+}
+function validatePassword() {
+    const password = document.getElementById('newPassword').value;
+
+    // Validate length
+    const isValidLength = password.length >= 8 && password.length <= 32;
+    updateRequirement("length", isValidLength);
+
+    // Validate that it contains at least one number
+    const hasNumber = /\d/.test(password);
+    updateRequirement("hasNumber", hasNumber);
+
+    // Validate that it contains at least one letter
+    const hasLetter = /[a-zA-Z]/.test(password);
+    updateRequirement("hasLetter", hasLetter);
+
+    // Validate that it contains at least one special character
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    updateRequirement("hasSpecialChar", hasSpecialChar);
+
+    // Return true if all requirements are met
+    return isValidLength && hasNumber && hasLetter && hasSpecialChar;
+}
+ 
 
 function Register() {
     let firstName = document.getElementById("firstName").value;
@@ -120,7 +153,9 @@ function Register() {
         document.getElementById("registrationResult").innerHTML = err.message;
     }
 }
-
+function showPasswordRequirements() {
+    document.getElementById("passwordRequirements").style.display = "block";
+}
 //-*********************************************************************************************
 
 
@@ -177,8 +212,49 @@ function doLogout()
 }
 /*-******************************SEARCH FOR CONTACT***********************************-*/
 
+function loadContacts(){
+    let obj = {"userID": userId};
+
+   let jsonPayload = JSON.stringify(obj);
+
+   let url = urlBase + "/SearchContacts." + extension;
+
+   let xhr = new XMLHttpRequest();
+   xhr.open("POST", url, true);
+   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+   try {
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                userContacts = JSON.parse(this.responseText);
+
+                if (userContacts.error != undefined) {
+                    console.log(userContacts.error);  
+                    return;
+                } 
+                else {
+                    console.log(userContacts);
+                }
+
+                const tableBody = document.getElementById("contactTableBody");
+                tableBody.innerHTML = '';
+
+                userContacts.forEach(contact => {
+                    addContactToTable(contact.FirstName, contact.LastName, contact.EmailAddress, contact.PhoneNumber);
+                    saveContact(contact.FirstName, contact.LastName, contact.EmailAddress, contact.PhoneNumber, contact.UserID);
+                });
+            }
+        };
+        xhr.send(jsonPayload);
+   } catch (e){
+        console.log("Error while fetching contacts: " + e);
+   }
+   
+}
+
+
 function searchContact() {
-    let srch = document.getElementById("searchText").value.toLowerCase().trim();
+    let srch = document.getElementById("searchText").value.toLowerCase();
     // Clear the table body
     const tableBody = document.getElementById("contactTableBody");
     tableBody.innerHTML = "";
@@ -186,31 +262,32 @@ function searchContact() {
     // Get contacts from localStorage
     let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
     
-    // If search text is empty, display all contacts
-    if (srch === "") {
-        contacts.forEach(contact => {
-            addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
-        });
-    } else {
-        // Filter contacts where first name starts with search text
-        let filteredContacts = contacts.filter(contact => {
-            return contact.firstName.toLowerCase().startsWith(srch);
-        });
-        
-        // Add the filtered contacts to the table
-        filteredContacts.forEach(contact => {
-            addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
-        });
-    }
+    // Filter contacts based on the search text
+    let filteredContacts = contacts.filter(contact => {
+        return contact.firstName.toLowerCase().includes(srch) ||
+               contact.lastName.toLowerCase().includes(srch) ||
+               contact.emailAddress.toLowerCase().includes(srch) ||
+               contact.phoneNumber.toLowerCase().includes(srch);
+    });
+    
+    // Add the filtered contacts to the table
+    filteredContacts.forEach(contact => {
+        addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+    });
+}
+/*-************************************ADD CONTACTS & ADD CONTACT FORM**************************************-*/
+
+
+function showForm() {
+    var form = document.getElementById("contactForm"); // Toggle the display of the form
+	form.style.display = "block"; // Clear the form whenever it's shown    
 }
 
-/*-************************************ADD CONTACTS**************************************-*/
-function showForm() {
-    // Toggle the display of the form
-    var form = document.getElementById("contactForm");
-	form.style.display = "block";
-         // Clear the form whenever it's shown
-    
+function hideForm() {
+    document.getElementById("cancelbtn").addEventListener("click", hideForm);
+    var form = document.getElementById("contactForm");// Get the form element
+    clearForm();
+    form.style.display = "none";  
 }
 
 function clearForm() {
@@ -219,7 +296,6 @@ function clearForm() {
     document.getElementById('last-Name').value = '';
     document.getElementById('emailAddress').value = '';
     document.getElementById('phoneNumber').value = '';
-    document.getElementById('userId').value = '';
 }
 
 function onclickAdd() {
@@ -229,16 +305,36 @@ function onclickAdd() {
     const phoneNumber = document.getElementById("phoneNumber").value;
 
     if (firstName && lastName && emailAddress && phoneNumber) {
-        // Add contact to the table and save in localStorage
-        addContactToTable(firstName, lastName, emailAddress, phoneNumber);
-        saveContact(firstName, lastName, emailAddress, phoneNumber);
-
-        // Reset the form and hide it after submission
+        if (window.currentlyEditingRow) {
+            updateContact(firstName, lastName, emailAddress, phoneNumber);
+        } else {
+            addContact();
+        }
         clearForm();
-        document.getElementById("contactForm").style.display = "none";
+        hideForm();
+        document.querySelector(".formtitle").innerText = "New Connection"; // Reset form title
+
+        // Ensure the button only contains the checkmark, not multiple icons
+        const checkButton = document.getElementById("checkbtn");
+        // This line ensures that it only contains the checkmark icon
+        checkButton.className = "fas fa-check";  // Set only the icon class
     } else {
         alert("Please fill out all fields");
     }
+}
+
+
+function getUserIdFromCookie() {
+	let userId = 0;
+	let cookies = document.cookie.split(';');
+	for (let i = 0; i < cookies.length; i++) {
+		let cookie = cookies[i].trim();
+		if (cookie.startsWith('userId=')) {
+			userId = parseInt(cookie.split('=')[1]);
+			break;
+		}
+	}
+	return userId;
 }
 
 function addContact() {
@@ -246,14 +342,15 @@ function addContact() {
     let lastName = document.getElementById('last-Name').value;
     let emailAddress = document.getElementById('emailAddress').value;
     let phoneNumber = document.getElementById('phoneNumber').value;
+ 
     
-    // Assuming userId is stored in cookies or globally
-    let userId = getUserIdFromCookie(); // Implement this function or access the cookie directly
-
-    document.getElementById("contactAddResult").innerHTML = "";
-
+    let resultDiv = document.getElementById("contactAddResult");//variable that gets the message to confirm contact has been added 
+    if (resultDiv) {
+        resultDiv.innerHTML = ""; // Clear any previous message
+    }
+    let userId = getUserIdFromCookie();
     // Creating the request payload
-    let e = { firstName: firstName, lastName: lastName, emailAddress: emailAddress, phoneNumber: phoneNumber, userId: userId };
+    let e = { firstName: firstName, lastName: lastName, emailAddress: emailAddress, phoneNumber: phoneNumber,userId: userId};
     let jsonPayload = JSON.stringify(e);
 
     let url = urlBase + '/AddContacts.' + extension;
@@ -264,108 +361,123 @@ function addContact() {
     try {
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "Contact added successfully!";
-
-                // Dynamically add the contact to the table (optionally, only if server-side insert was successful)
-                addContactToTable(firstName, lastName, emailAddress, phoneNumber);
+                // Check if resultDiv exists and update its innerHTML
+                if (resultDiv) {
+                    resultDiv.innerHTML = "Contact added successfully!";//confirmation message
+                }
+                addContactToTable(firstName, lastName, emailAddress, phoneNumber); //this adds the contact to the table 
+                saveContact(firstName, lastName, emailAddress, phoneNumber,userId);
             }
         };
         xhr.send(jsonPayload);
     } catch (err) {
-        document.getElementById("contactAddResult").innerHTML = err.message;
+        // Check if resultDiv exists and display the error message
+        if (resultDiv) {
+            resultDiv.innerHTML = err.message;
+        }
     }
 }
 
-/*-*******************************************************************/
-// Show the password requirements when the user clicks/focuses on the password field
-function showPasswordRequirements() {
-    document.getElementById("passwordRequirements").style.display = "block";
+
+/*-**************************Phone and email validation inside Add Contact form*****************************************/
+
+// Function to show phone number requirements
+function togglePhoneNumberRequirements(show) {
+    const requirements = document.getElementById("phoneNumberRequirements");
+    if (requirements) {
+        requirements.style.display = show ? "block" : "none";
+    }
 }
 
-// Validate the password as the user types
-function validatePassword() {
-    const password = document.getElementById("newPassword").value;
+// Validate the phone number as the user types
+function validatePhoneNumber() {
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const hasDigits = /^\d+$/.test(phoneNumber); // Only digits allowed
+    const digitsLength = phoneNumber.length >= 10; // At least 10 digits
 
-    // Regular expressions to check the requirements
-    const hasNumber = /[0-9]/.test(password);
-    const hasLetter = /[a-zA-Z]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const charLength = password.length >= 8 && password.length <= 32;
+    // Update the UI for each requirement
+    updatePhoneRequirement("hasDigits", hasDigits);
+    updatePhoneRequirement("digitsLength", digitsLength);
 
-    // Update the password requirement list based on validation
-    updateRequirement("charLength", charLength);
-    updateRequirement("hasNumber", hasNumber);
-    updateRequirement("hasLetter", hasLetter);
-    updateRequirement("hasSpecialChar", hasSpecialChar);
-
-	// Return true if all requirements are met, otherwise false
-    return charLength && hasNumber && hasLetter && hasSpecialChar;
+    // Return true if all requirements are met
+    return hasDigits && digitsLength;
 }
 
-// Function to update the requirements with a green check (valid) or red "X" (invalid)
-function updateRequirement(elementId, isValid) {
+// Function to update phone requirement indicators (valid/invalid)
+function updatePhoneRequirement(elementId, isValid) {
     const element = document.getElementById(elementId);
-    if (isValid) {
-        element.classList.remove("invalid");
-        element.classList.add("valid");
-        element.innerHTML = `✔ ${element.innerHTML.slice(2)}`; // Replace the ❌ with ✔
-    } else {
-        element.classList.remove("valid");
-        element.classList.add("invalid");
-        element.innerHTML = `❌ ${element.innerHTML.slice(2)}`; // Replace the ✔ with ❌
-    }
+    const text = element.getAttribute("data-text"); // Static text for the rule
+
+    element.classList.toggle("valid", isValid);   // Add 'valid' class if true
+    element.classList.toggle("invalid", !isValid); // Add 'invalid' class if false
+
+    element.innerHTML = `<i class="fas fa-${isValid ? 'check' : 'times'}"></i> ${text}`;
 }
 
-// Save contact 
+// Clear all phone validation requirements (reset state)
+function clearPhoneNumberValidation() {
+    const requirements = document.querySelectorAll("#phoneNumberRequirements li");
+    requirements.forEach(item => {
+        item.classList.remove("valid");
+        item.classList.add("invalid");
+        item.innerHTML = `<i class="fa-solid fa-xmark"></i> ${item.getAttribute("data-text")}`;
+    });
+}
 
-// Add Contact Function
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneNumberField = document.getElementById("phoneNumber");
+
+    if (phoneNumberField) {
+        // Add event listeners for showing, hiding, and validating the phone number
+        phoneNumberField.addEventListener("focus", () => togglePhoneNumberRequirements(true));
+        phoneNumberField.addEventListener("blur", () => togglePhoneNumberRequirements(false));
+        phoneNumberField.addEventListener("input", validatePhoneNumber);
+
+        // Initialize validation state
+        clearPhoneNumberValidation();
+    } else {
+        console.error('Phone number field not found in the DOM.');
+    }
+});
+
+/****************************************CONTACTS TABLE*************************************************/
 
 function addContactToTable(firstName, lastName, email, phone) {
     const tableBody = document.getElementById("contactTableBody");
     const newRow = document.createElement("tr");
 
-    newRow.innerHTML = 
-        `<td>${firstName}</td>
+    newRow.innerHTML = `
+        <td>${firstName}</td>
         <td>${lastName}</td>
         <td>${email}</td>
         <td>${phone}</td>
         <td>
             <button class="edit"><i class="fa-solid fa-user-pen"></i></button>
             <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
-        </td>`;
-    
+        </td>
+    `;
+   
     tableBody.appendChild(newRow);
-
-    // Add functionality to the newly added buttons
-    const editButton = newRow.querySelector('.edit');
-    const deleteButton = newRow.querySelector('.delete');
-
-    editButton.addEventListener('click', function () {
-        // Your edit functionality here
-    });
-
-    deleteButton.addEventListener('click', function () {
-        // Remove the row from the table
-        tableBody.removeChild(newRow);
-        // Remove the contact from localStorage
-        removeContactFromLocalStorage(firstName, lastName);
-    });
+    addDeleteFunctionality();
+    addEditFunctionality();
 }
 
 // Save contact in local storage
-function saveContact(firstName, lastName, emailAddress, phoneNumber) {
+function saveContact(firstName, lastName, emailAddress, phoneNumber, userId) {
     let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    contacts.push({ firstName, lastName, emailAddress, phoneNumber });
+    contacts.push({ firstName, lastName, emailAddress, phoneNumber, userId }); // Include userId in the contact
     localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
 // Load contacts from local storage on page load
-window.addEventListener("load", function() {
-    const savedContacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    savedContacts.forEach(contact => {
-        addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
-    });
-});
+// window.addEventListener("load", function() {
+//     const savedContacts = JSON.parse(localStorage.getItem("contacts")) || [];
+//     console.log(savedContacts);
+//     savedContacts.forEach(contact => {
+//         if(contact.userId == userId)
+//             addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+//     });
+// });
 
 // Delete contact from local storage
 function deleteContact(firstName, lastName, emailAddress, phoneNumber) {
@@ -387,7 +499,7 @@ function addDeleteFunctionality() {
         button.addEventListener("click", function () {
             this.parentElement.parentElement.remove(); // Remove the row from the table
 
-            // Optionally: If using localStorage, remove the contact from there as well
+            //using localStorage, remove the contact from there as well
             let contactRow = this.parentElement.parentElement;
             let firstName = contactRow.cells[0].textContent;
             let lastName = contactRow.cells[1].textContent;
@@ -416,42 +528,24 @@ function addEditFunctionality() {
             let email = contactRow.cells[2].textContent;
             let phone = contactRow.cells[3].textContent;
 
+            // Store the reference to the contactRow in a global variable to know which row is being edited
+            window.currentlyEditingRow = contactRow;
+
             // Populate the form with current contact info
             document.getElementById('first-Name').value = firstName;
             document.getElementById('last-Name').value = lastName;
             document.getElementById('emailAddress').value = email;
             document.getElementById('phoneNumber').value = phone;
 
+            // Change the form title to "Edit Connection"
+            document.querySelector(".formtitle").innerText = "Edit Connection";
+
             // Show the form to edit
             document.getElementById("contactForm").style.display = "block";
-
-            // Update the contact on form submission
-            document.getElementById("contactForm").onsubmit = function (event) {
-                event.preventDefault();
-                
-                // Get updated values from form
-                let updatedFirstName = document.getElementById('first-Name').value;
-                let updatedLastName = document.getElementById('last-Name').value;
-                let updatedEmail = document.getElementById('emailAddress').value;
-                let updatedPhone = document.getElementById('phoneNumber').value;
-
-                // Update the table row with the new values
-                contactRow.cells[0].textContent = updatedFirstName;
-                contactRow.cells[1].textContent = updatedLastName;
-                contactRow.cells[2].textContent = updatedEmail;
-                contactRow.cells[3].textContent = updatedPhone;
-
-                // Optionally: If using localStorage, update the contact there as well
-                updateContactInLocalStorage(firstName, lastName, updatedFirstName, updatedLastName, updatedEmail, updatedPhone);
-
-                // Hide the form after updating
-                document.getElementById("contactForm").style.display = "none";
-            };
         });
     });
 }
 
-// Function to update contact in localStorage (optional)
 function updateContactInLocalStorage(oldFirstName, oldLastName, newFirstName, newLastName, newEmail, newPhone) {
     let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
     let contactIndex = contacts.findIndex(contact => contact.firstName === oldFirstName && contact.lastName === oldLastName);
@@ -464,4 +558,48 @@ function updateContactInLocalStorage(oldFirstName, oldLastName, newFirstName, ne
         };
         localStorage.setItem("contacts", JSON.stringify(contacts));
     }
+}
+
+function updateContact(firstName, lastName, emailAddress, phoneNumber) {
+    const row = window.currentlyEditingRow;
+    let userId = getUserIdFromCookie();
+    
+
+    // Update the DOM table with the new values
+    row.cells[0].textContent = firstName;
+    row.cells[1].textContent = lastName;
+    row.cells[2].textContent = emailAddress;
+    row.cells[3].textContent = phoneNumber;
+
+    
+    updateContactInLocalStorage(row.cells[0].textContent, row.cells[1].textContent, firstName, lastName, emailAddress, phoneNumber);
+
+    // Update the contact in the backend
+    let jsonPayload = JSON.stringify({
+        newFirst: firstName, 
+        newLast: lastName, 
+        newEmail: emailAddress, 
+        newPhone: phoneNumber,
+        userId: userId
+    });
+    let url = urlBase + '/UpdateContacts.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("Contact updated successfully!");
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        console.error("Error updating contact: ", err);
+    }
+
+    // Clear the reference to the edited row after the update
+    window.currentlyEditingRow = null;
+
+
 }

@@ -4,8 +4,8 @@
 
 	$newFirst = $inData["newFirst"];
 	$newLast = $inData["newLast"];
-	$newPhone = $inData["newPhone"];
 	$newEmail = $inData["newEmail"];
+	$newPhone = $inData["newPhone"];
 	$userId = $inData["userId"];
 
 

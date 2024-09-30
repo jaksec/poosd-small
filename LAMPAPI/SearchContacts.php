@@ -1,71 +1,73 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
 
-	$inData = getRequestInfo();
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+        http_response_code(200);
+        exit();
+    }
+    
+    $inData = getRequestInfo();
 
-	$searchResults = "";
-	$searchCount = 0;
+    $userID = $inData["userID"];
 
+    // Connect to the database
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-	if ($conn->connect_error)
-	{
-		returnWithError( $conn->connect_error );
-	}
-	else
-	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like?) AND UserID=?");
-		$contactName = "%" . $inData["search"] . "%"; 
-		$stmt->bind_param("ssi", $contactName, $contactName, $inData["userId"]);
-		$stmt->execute();
+    
+    if( $conn->connect_error )
+    {
+        returnWithError( $conn->connect_error );
+    } else {
 
-		$result = $stmt->get_result();
+       // Prepare and execute the SQL query
+       $stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID=?");
+       $stmt->bind_param("i", $userID);
+       
+       if ($stmt->execute()) {
+           $result = $stmt->get_result();
+           $contacts = array();
 
-		while($row = $result->fetch_assoc())
-		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
-			$searchCount++;
-			// $searchResults .= '"' . $row["FirstName"] . '"';
-			//"." means add
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "PhoneNumber" : "' . $row["PhoneNumber"]. '", "EmailAddress" : "' . $row["EmailAddress"]. '", "UserID" : "' . $row["UserID"].'", "ID" : "' . $row["ID"]. '"}';
-		}
+           // Fetch all contacts as an associative array
+           while ($row = $result->fetch_assoc()) {
+               $contacts[] = $row;
+           }
 
-		if( $searchCount == 0 )
-		{
-			returnWithError( "Sorry...No Records Found" );
-		}
-		else
-		{
-			returnWithInfo( $searchResults );
-			
-		}
+           if (count($contacts) > 0) {
+               returnWithInfo($contacts);  // Return all contacts
+           } else {
+               returnWithError("No contacts found.");
+           }
+       } else {
+           // Error handling
+           returnWithError($stmt->error);
+       }
 
-		$stmt->close();
-		$conn->close();
-	}
+       // Close statement and connection
+       $stmt->close();
+       $conn->close();
+    }
 
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
+    function getRequestInfo()
+    {
+        return json_decode(file_get_contents('php://input'), true);
+    }
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
+    function returnWithError($err)
+    {
+        $retValue = '{"error":"' . $err . '"}';
+        sendResultInfoAsJson($retValue);
+    }
 
-	function returnWithError( $err )
-	{
-		$retValue = '{"Error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
+    function returnWithInfo($data)
+    {
+        $retValue = json_encode($data);
+        sendResultInfoAsJson($retValue);
+    }
 
-	function returnWithInfo( $searchResults )
-	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
-
+    function sendResultInfoAsJson($obj)
+    {
+        header('Content-type: application/json');
+        echo $obj;
+    }
 ?>

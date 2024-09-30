@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TouchBase</title>
+    <title>TouchBase Login</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">
@@ -12,13 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<title>Font Awesome Buttons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
 </head>
 <body>
     <div id="particles-js"></div>
 
     <style>
         .circular-button {
-            display: inline-block;
+            display: inline-block;  
             width: 140px;
             height: 140px;
             border-radius: 50%;
@@ -60,12 +63,19 @@
 
         <input type="password" id="newPassword" placeholder="Password" onfocus="showPasswordRequirements()" oninput="validatePassword()"/><br />
 
-        <!-- Password requirements initially hidden -->
         <ul id="passwordRequirements" style="display: none;">
-            <li id="charLength" class="invalid">&#10060; 8-32 characters</li>
-            <li id="hasNumber" class="invalid">&#10060; At least one number</li>
-            <li id="hasLetter" class="invalid">&#10060; At least one letter</li>
-            <li id="hasSpecialChar" class="invalid">&#10060; At least one special character</li>
+            <li id="length" data-text="8-32 characters" class="invalid">
+                <i class="fas fa-times"></i> 8-32 characters
+            </li>
+            <li id="hasNumber" data-text="At least one number" class="invalid">
+                <i class="fas fa-times"></i> At least one number
+            </li>
+            <li id="hasLetter" data-text="At least one letter" class="invalid">
+                <i class="fas fa-times"></i> At least one letter
+            </li>
+            <li id="hasSpecialChar" data-text="At least one special character" class="invalid">
+                <i class="fas fa-times"></i> At least one special character
+            </li>
         </ul>
 
         <div class="buttons-su-glow">

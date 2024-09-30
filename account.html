@@ -1,10 +1,12 @@
 <html>
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
+	<title>TouchBase</title>
 	<script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">	
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 
 <body>
@@ -52,7 +54,7 @@
 		<a href="#" class="search-icon">
 			<i class="fas fa-search"></i>
 		</a>
-		<input type="text" id="searchText" placeholder="Who would you like to TouchBase with?" oninput="searchContact();">
+		<input type="text" placeholder="Who would you like to TouchBase with?"oninput="searchContact();">
 	</div>
 	<div class="logOut">
 		<button class="logoutButton" type="button" id="logoutButton" onclick="doLogout();">			
@@ -71,13 +73,28 @@
 		<input type="text" id="first-Name" placeholder="First Name" required>
 		<input type="text" id="last-Name" placeholder="Last Name" required>
 		<input type="text" id="emailAddress" placeholder="Email Address" required>
-		<input type="text" id="phoneNumber" placeholder="Phone Number" required>
-		<input type="text" id="userId" placeholder="User ID">
+		<input type="text" id="phoneNumber" placeholder="Phone Number" onfocus="showPhoneNumberRequirements()" oninput="validatePhoneNumber()"/>
 	
-		<button type="button"  onclick="onclickAdd()">
-			<i class="fas fa-check"></i>
-		</button>		
-		<div id="contactAddResult"></div>
+		<div id="buttonDiv">
+			<button type="button"  onclick="onclickAdd()">
+				<i class="fas fa-check" id="checkbtn"></i>
+			</button>
+			<button type="button" onclick="hideForm()">
+				<i class="fa-solid fa-xmark" id="cancelbtn"></i>
+			</button>
+		</div>
+		<div id = "phoneDiv">
+			<ul id="phoneNumberRequirements" style="display: none;">
+				<li id="digitsLength" data-text="At least 10 digits" class="invalid">
+					<i class="fa-solid fa-xmark" id="phreqbtn"></i> At least 10 digits
+				</li>
+				<li id="hasDigits" data-text="Only digits are allowed" class="invalid">
+					<i class="fa-solid fa-xmark" id="phreqbtn"></i> Only digits are allowed
+				</li>
+			</ul>
+		</div>
+
+		<!-- <div id="contactAddResult"></div> -->
 	</div>
 <!-- 
 	<div id="accessUIDiv">
@@ -85,6 +102,7 @@
 	</div>
  -->
 	<!-- Table to Display Contacts -->
+	 <div></div>
     <div class="table-container">
         <table>
             <thead>
@@ -105,6 +123,7 @@
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function(){
 		readCookie();
+		loadContacts();
 	}, false);
 
 	
