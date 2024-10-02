@@ -26,10 +26,15 @@
 ---
 
 ## Features
--**User Authentication:** A secure login and registration system using JSON Web Tokens (JWT) is used to authenticate users and protect contact data.
--**Contact Management:** Users can add new contacts, view existing ones, and delete any contact from their contact list.
--**Search Functionality:** Efficient search function allowing users to search for contacts by name, email, or phone number.
--**Responsive Design:** Fully responsive design, ensuring the application works across different devices and screen sizes.
--**Dynamic UI with Particle Animation:** A visually engaging background with particle animations using particles.js, enhancing the user experience.
+
+- **User Authentication:** A secure login and registration system using JSON Web Tokens (JWT) is used to authenticate users and protect contact data.
+  
+- **Contact Management:** Users can add new contacts, view existing ones, and delete any contact from their contact list.
+  
+- **Search Functionality:** Efficient search function allowing users to search for contacts by name, email, or phone number.
+  
+- **Responsive Design:** Fully responsive design, ensuring the application works across different devices and screen sizes.
+  
+- **Dynamic UI with Particle Animation:** A visually engaging background with particle animations using particles.js, enhancing the user experience.
 
 
