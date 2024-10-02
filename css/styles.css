@@ -262,6 +262,8 @@ input[type="text"],input[type="password"]{
     display: flex;
     flex-direction: column; /* Stack children vertically */
     align-items: center; 
+    text-align: center;
+    text-wrap: nowrap;
     justify-content: space-around; 
     /*box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
     height: auto; /* allow for content */
@@ -274,7 +276,7 @@ input[type="text"],input[type="password"]{
     position: relative;
     margin-top: 20px;
     height: 70px;
-    width: 220px;
+    width: 370px;
     background: radial-gradient(blue, cyan, blue); /* Glow effect */
     border-radius: 50px;
     display: flex;
@@ -288,7 +290,7 @@ input[type="text"],input[type="password"]{
     color: #f2f2f2; /* Light text color */
     border-radius: 50px; /* Rounded edges for the black box */
     height: 60px; /* Slightly smaller to fit inside the outer container */
-    width: 210px; /* Adjust width to fit within the outer container */
+    width: 360px; /* Adjust width to fit within the outer container */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -478,7 +480,9 @@ input[type="text"],input[type="password"]{
     position: relative;
     margin-top: 20px;
     height: 70px;
-    width: 220px;
+    width: 420px;
+    text-align: center;
+    text-wrap: nowrap;
     background: radial-gradient(blue, cyan, blue); /* Glow effect */
     border-radius: 50px;
     display: flex;
@@ -492,7 +496,7 @@ input[type="text"],input[type="password"]{
     color: #f2f2f2; /* Light text color */
     border-radius: 50px; /* Rounded edges for the black box */
     height: 60px; /* Slightly smaller to fit inside the outer container */
-    width: 210px; /* Adjust width to fit within the outer container */
+    width: 410px; /* Adjust width to fit within the outer container */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -858,7 +862,6 @@ input[type="text"],input[type="password"]{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Optional shadow */
     height: auto; /* Adjust as needed */
     width: 350px;
-    z-index: 16; /* Keep a higher z-index to ensure it is above the table */
     padding: 20px; /* Added padding to ensure there's space inside the form */
 }
 .formtitle{
@@ -1056,7 +1059,7 @@ select{
     justify-content: flex-start; /* Left-align both icon and text */
     margin-left: 20%;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 22px;
 }
 
 /* Valid and invalid classes for checkmarks and X marks */
@@ -1080,9 +1083,9 @@ select{
     font-size: 18px; /* Adjust the icon size if needed */
 }
 
-
-
-
+#phoneDiv, #phoneNumberRequirements {
+    background-color: transparent; /* Removes the black background */
+}
 
 
 #accessUIDiv
@@ -1125,62 +1128,77 @@ select{
 
 /* STYLING CONTACT PAGE */
 /* Existing styles for the table and buttons */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevents the page from scrolling */
+}
+
 .table-container {
-    position: relative;
     width: 100%;
     margin-top: 20px;
-    height: auto;
-    box-sizing: border-box;
-    border-top-left-radius: 25px; 
+    max-height: 90%; /* Adjusted to show around 10 rows */
+    overflow-y: none;  /* Enable vertical scrolling */
+    border-top-left-radius: 25px;
     border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-sizing: border-box;
     z-index: 15;
 }
 
-
 table {
-    border-radius: 25px;
     width: 100%;
-    /*border-collapse: collapse;*/
-    border-left: #599ad0;
-    border-top: #599ad0;
-    
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+thead th {
+    background-color: #86bfe857;
+    color: rgb(79, 54, 166);
+    font-size: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+tbody {
+    display: block;
+    max-height: 625px; /* Adjusted to show approximately 10 rows */
+    overflow-y: auto;
+    width: 100%;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
 th, td {
-    
     text-align: center;
     padding: 12px 15px;
-    /*border-bottom: 1px solid #ddd;*/
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
     border-left: #599ad0;
     border-top: #599ad0;
 }
 
-th {
-    
-    background-color: #86bfe857;
-    color: rgb(79, 54, 166);
-    font-size: 18px;
-   
-    
-}
 th:first-child {
-    border-top-left-radius: 25px; /* Round only top-left corner */
+    border-top-left-radius: 25px;
 }
 
 th:last-child {
-    border-top-right-radius: 25px; /* Round only top-right corner */
+    border-top-right-radius: 25px;
 }
 
-
 td {
-    border-radius: 25px;
-    border-top-left-radius: 25px; 
-    border-top-right-radius: 25px;
     font-size: 16px;
-    border-collapse: collapse;
-
+    border-bottom: 1px solid #ddd;
+}
+tr{
+    height: 15;
 }
 
 .actions {
@@ -1351,7 +1369,29 @@ td{
     z-index: 20;
 }
 
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    display: flex;
+}
 
+/* Modal content */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
 
 
 /*

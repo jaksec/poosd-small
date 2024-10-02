@@ -212,69 +212,110 @@ function doLogout()
 }
 /*-******************************SEARCH FOR CONTACT***********************************-*/
 
-function loadContacts(){
-    let obj = {"userID": userId};
+function loadContacts(searchText = "") {
+    // Prepare the request payload with userId and optional searchText
+    let obj = {
+        "userID": userId,
+        "search": searchText.trim().toLowerCase() // Trim and convert search text to lowercase
+    };
 
-   let jsonPayload = JSON.stringify(obj);
+    let jsonPayload = JSON.stringify(obj);
 
-   let url = urlBase + "/SearchContacts." + extension;
+    // Define the API URL for searching contacts
+    let url = urlBase + "/SearchContacts." + extension;
 
-   let xhr = new XMLHttpRequest();
-   xhr.open("POST", url, true);
-   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-   try {
-        xhr.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                userContacts = JSON.parse(this.responseText);
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let userContacts = JSON.parse(this.responseText);
 
-                if (userContacts.error != undefined) {
-                    console.log(userContacts.error);  
+                if (userContacts.error && userContacts.error !== "") {
+                    console.log(userContacts.error);
                     return;
-                } 
-                else {
-                    console.log(userContacts);
                 }
 
-                const tableBody = document.getElementById("contactTableBody");
-                tableBody.innerHTML = '';
+                // If no contacts are found, show a message or clear the table
+                if (userContacts.results === undefined || userContacts.results.length === 0) {
+                    document.getElementById("contactTableBody").innerHTML = "<tr><td colspan='5'>No matching contacts found</td></tr>";
+                    return;
+                }
 
-                userContacts.forEach(contact => {
-                    addContactToTable(contact.FirstName, contact.LastName, contact.EmailAddress, contact.PhoneNumber);
-                    saveContact(contact.FirstName, contact.LastName, contact.EmailAddress, contact.PhoneNumber, contact.UserID);
-                });
+                // Store the loaded contacts in a global variable for DOM filtering
+                window.loadedContacts = userContacts.results;
+
+                // Call the function to update the DOM with the API response and search text
+                updateDOMTable(searchText);
             }
         };
         xhr.send(jsonPayload);
-   } catch (e){
+    } catch (e) {
         console.log("Error while fetching contacts: " + e);
-   }
-   
+    }
 }
 
-
-function searchContact() {
-    let srch = document.getElementById("searchText").value.toLowerCase();
+// Function to update the DOM table based on filtered contacts
+function updateDOMTable(searchText = "") {
     // Clear the table body
     const tableBody = document.getElementById("contactTableBody");
-    tableBody.innerHTML = "";
-    
-    // Get contacts from localStorage
-    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    
-    // Filter contacts based on the search text
-    let filteredContacts = contacts.filter(contact => {
-        return contact.firstName.toLowerCase().includes(srch) ||
-               contact.lastName.toLowerCase().includes(srch) ||
-               contact.emailAddress.toLowerCase().includes(srch) ||
-               contact.phoneNumber.toLowerCase().includes(srch);
+    tableBody.innerHTML = '';
+
+    // Filter the loaded contacts based on the search text
+    let filteredContacts = window.loadedContacts.filter(contact => {
+        // Check if the contact's first name starts with the search text letters in order
+        return matchesInOrder(contact.FirstName.toLowerCase(), searchText.toLowerCase());
     });
-    
-    // Add the filtered contacts to the table
+
+    // Add each filtered contact to the table
     filteredContacts.forEach(contact => {
-        addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
+        addContactToTable(contact.FirstName, contact.LastName, contact.EmailAddress, contact.PhoneNumber);
     });
+
+    // If no contacts remain after filtering, show a message
+    if (filteredContacts.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='5'>No matching contacts found</td></tr>";
+    }
 }
+
+// Helper function to check if the search string appears in the full string in the correct order
+function matchesInOrder(fullString, searchString) {
+    if (!searchString) return true; // If searchString is empty, consider it a match
+    if (fullString.length < searchString.length) return false; // If the searchString is longer, no match is possible
+
+    // Check each character in searchString to see if it matches the corresponding character in fullString
+    for (let i = 0; i < searchString.length; i++) {
+        if (fullString[i] !== searchString[i]) {
+            return false; // Return false if any character doesn't match exactly in order
+        }
+    }
+
+    return true; // Return true if all characters match in order
+}
+
+// Define the searchContact function to handle search input changes
+function searchContact() {
+    // Get the search input text
+    let searchText = document.getElementById("searchText").value;
+
+    // Update the DOM table for real-time filtering without API call
+    updateDOMTable(searchText);
+
+    // Call loadContacts with the search text to perform API filtering
+    loadContacts(searchText);
+}
+
+
+// Call loadContacts initially to load all contacts when the page loads
+window.onload = function() {
+    window.loadedContacts = []; // Initialize global variable to store contacts
+    loadContacts(); // Load all contacts by default
+
+    // Attach an event listener to the search bar for real-time filtering and API calls
+    document.getElementById("searchText").addEventListener("input", searchContact);
+};
 /*-************************************ADD CONTACTS & ADD CONTACT FORM**************************************-*/
 
 
@@ -319,7 +360,7 @@ function onclickAdd() {
         // This line ensures that it only contains the checkmark icon
         checkButton.className = "fas fa-check";  // Set only the icon class
     } else {
-        alert("Please fill out all fields");
+        // alert("Please fill out all fields");
     }
 }
 
@@ -458,9 +499,17 @@ function addContactToTable(firstName, lastName, email, phone) {
     `;
    
     tableBody.appendChild(newRow);
-    addDeleteFunctionality();
+
+    // Attach delete functionality to the new delete button
+    const deleteButton = newRow.querySelector(".delete");
+    deleteButton.addEventListener("click", function() {
+        showDeleteConfirmation(firstName, lastName, newRow);
+    });
+
+    // Attach edit functionality as well (if needed)
     addEditFunctionality();
 }
+
 
 // Save contact in local storage
 function saveContact(firstName, lastName, emailAddress, phoneNumber, userId) {
@@ -469,41 +518,116 @@ function saveContact(firstName, lastName, emailAddress, phoneNumber, userId) {
     localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
-// Load contacts from local storage on page load
-// window.addEventListener("load", function() {
-//     const savedContacts = JSON.parse(localStorage.getItem("contacts")) || [];
-//     console.log(savedContacts);
-//     savedContacts.forEach(contact => {
-//         if(contact.userId == userId)
-//             addContactToTable(contact.firstName, contact.lastName, contact.emailAddress, contact.phoneNumber);
-//     });
-// });
+// Store contact information globally for later use
+let contactToDelete = null;
 
-// Delete contact from local storage
-function deleteContact(firstName, lastName, emailAddress, phoneNumber) {
-    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    contacts = contacts.filter(contact => 
-        contact.firstName !== firstName || 
-        contact.lastName !== lastName || 
-        contact.emailAddress !== emailAddress || 
-        contact.phoneNumber !== phoneNumber
-    );
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+// Function to trigger when the delete button is clicked
+function showDeleteConfirmation(firstName, lastName, contactRow) {
+    const deleteModal = document.getElementById("deleteConfirmationModal");
+    const confirmDeleteButton = document.getElementById("confirmDelete");
+    const cancelDeleteButton = document.getElementById("cancelDelete");
+
+    if (deleteModal && confirmDeleteButton && cancelDeleteButton) {
+        // Show the modal
+        deleteModal.style.display = "flex";
+
+        // Handle "Yes" button click
+        confirmDeleteButton.onclick = function() {
+            deleteContact(firstName, lastName, contactRow);
+            deleteModal.style.display = "none"; // Close the modal
+        };
+
+        // Handle "No" button click
+        cancelDeleteButton.onclick = function() {
+            deleteModal.style.display = "none"; // Close the modal without deleting
+        };
+    } else {
+        console.error('Modal or buttons not found in the DOM.');
+    }
 }
 
+// Function to confirm deletion
+function confirmDeleteContact() {
+    if (contactToDelete) {
+        deleteContact(contactToDelete.firstName, contactToDelete.lastName, contactToDelete.contactRow);
+        document.getElementById("deleteConfirmationModal").style.display = "none"; // Hide the modal
+    }
+}
+
+// Function to cancel deletion
+function cancelDeleteContact() {
+    document.getElementById("deleteConfirmationModal").style.display = "none"; // Hide the modal without deleting
+}
+
+
+// Delete contact using the API
+function deleteContact(firstName, lastName, contactRow) {
+    let userId = getUserIdFromCookie();
+
+    // Create the JSON payload
+    let jsonPayload = JSON.stringify({
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName
+    });
+
+    // Define the URL for the DeleteContacts API
+    let url = urlBase + '/DeleteContacts.' + extension;
+
+    // Create a new XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    // Try sending the request and handle errors
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    // Parse the response to check for errors or success
+                    let response = JSON.parse(xhr.responseText);
+                    if (response.Error && response.Error !== "") {
+                        console.error("Error from server: ", response.Error);
+                        alert("Failed to delete contact: " + response.Error);
+                    } else {
+                        // Remove the row from the table
+                        contactRow.remove();
+                        // Remove from local storage
+                        removeContactFromLocalStorage(firstName, lastName);
+                        // alert("Contact deleted successfully!");
+                        location.reload();
+                    }
+                } else {
+                    // HTTP error, display status and message
+                    console.error("HTTP Error: ", this.status, this.statusText);
+                    alert("Failed to delete contact. Server responded with a status of: " + this.status);
+                }
+            }
+        };
+        // Send the request with the JSON payload
+        xhr.send(jsonPayload);
+    } catch (err) {
+        // Catch any other errors and log them
+        console.error("Error deleting contact: ", err);
+        alert("An error occurred while deleting the contact.");
+    }
+}
+
+// Function to handle delete button
 // Function to handle delete button
 function addDeleteFunctionality() {
     const deleteButtons = document.querySelectorAll(".delete");
 
     deleteButtons.forEach(button => {
         button.addEventListener("click", function () {
-            this.parentElement.parentElement.remove(); // Remove the row from the table
-
-            //using localStorage, remove the contact from there as well
+            // Get the current row data
             let contactRow = this.parentElement.parentElement;
             let firstName = contactRow.cells[0].textContent;
             let lastName = contactRow.cells[1].textContent;
-            removeContactFromLocalStorage(firstName, lastName);
+
+            // Call deleteContact function, passing the contactRow
+            deleteContact(firstName, lastName, contactRow);
+            removeContactFromLocalStorage(firstName, lastName)
         });
     });
 }
@@ -561,45 +685,77 @@ function updateContactInLocalStorage(oldFirstName, oldLastName, newFirstName, ne
 }
 
 function updateContact(firstName, lastName, emailAddress, phoneNumber) {
+    // Retrieve the currently edited row and the user ID from the cookie
     const row = window.currentlyEditingRow;
     let userId = getUserIdFromCookie();
-    
 
-    // Update the DOM table with the new values
+    // Get the original (old) first and last name values from the row
+    let oldFirstName = row.cells[0].textContent;
+    let oldLastName = row.cells[1].textContent;
+
+    console.log(oldFirstName);
+    console.log(oldLastName);
+
+    // Update the DOM table row with the new values
     row.cells[0].textContent = firstName;
     row.cells[1].textContent = lastName;
     row.cells[2].textContent = emailAddress;
     row.cells[3].textContent = phoneNumber;
 
-    
-    updateContactInLocalStorage(row.cells[0].textContent, row.cells[1].textContent, firstName, lastName, emailAddress, phoneNumber);
+    console.log(oldFirstName);
+    console.log(oldLastName);
 
-    // Update the contact in the backend
+    // Update the contact in local storage using the original names
+    updateContactInLocalStorage(oldFirstName, oldLastName, firstName, lastName, emailAddress, phoneNumber);
+
+    // Create the JSON payload with both old and new values for the update request
     let jsonPayload = JSON.stringify({
         newFirst: firstName, 
         newLast: lastName, 
         newEmail: emailAddress, 
         newPhone: phoneNumber,
-        userId: userId
+        userId: userId,
+        oldf: oldFirstName,   // Original (old) first name
+        oldl: oldLastName     // Original (old) last name
     });
+
+    // Define the URL for the UpdateContacts API
     let url = urlBase + '/UpdateContacts.' + extension;
 
+    // Create a new XMLHttpRequest object
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    // Try sending the request and handle errors
     try {
         xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                alert("Contact updated successfully!");
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    // Parse the response to check for errors or success
+                    let response = JSON.parse(xhr.responseText);
+                    if (response.Error) {
+                        console.error("Error from server: ", response.Error);
+                        alert("Failed to update contact: " + response.Error);
+                    } else {
+                        // alert("Contact updated successfully!");
+                        location.reload();
+                    }
+                } else {
+                    // HTTP error, display status and message
+                    console.error("HTTP Error: ", this.status, this.statusText);
+                    alert("Failed to update contact. Server responded with a status of: " + this.status);
+                }
             }
         };
+        // Send the request with the JSON payload
         xhr.send(jsonPayload);
     } catch (err) {
+        // Catch any other errors and log them
         console.error("Error updating contact: ", err);
+        alert("An error occurred while updating the contact.");
     }
 
     // Clear the reference to the edited row after the update
     window.currentlyEditingRow = null;
-
-
 }

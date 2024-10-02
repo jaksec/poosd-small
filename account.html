@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<title>TouchBase</title>
 	<script type="text/javascript" src="js/code.js"></script>
@@ -54,7 +55,7 @@
 		<a href="#" class="search-icon">
 			<i class="fas fa-search"></i>
 		</a>
-		<input type="text" placeholder="Who would you like to TouchBase with?"oninput="searchContact();">
+		<input type="text" id="searchText" placeholder="Who would you like to TouchBase with?">
 	</div>
 	<div class="logOut">
 		<button class="logoutButton" type="button" id="logoutButton" onclick="doLogout();">			
@@ -63,7 +64,7 @@
 		<span></span>
 	</div>
 	
-	<button class="addcontactButton" type="button" id="addcontactButton" onclick="showForm()">
+	<button class="addcontactButton" type="button" id="addcontactButton" onclick="showForm();">
 		<i class="fas fa-user-plus"></i>
 	</button>
 	
@@ -73,7 +74,11 @@
 		<input type="text" id="first-Name" placeholder="First Name" required>
 		<input type="text" id="last-Name" placeholder="Last Name" required>
 		<input type="text" id="emailAddress" placeholder="Email Address" required>
-		<input type="text" id="phoneNumber" placeholder="Phone Number" onfocus="showPhoneNumberRequirements()" oninput="validatePhoneNumber()"/>
+		<input type="text" id="phoneNumber" placeholder="Phone Number" 
+    	onfocus="togglePhoneNumberRequirements(true)" 
+		onblur="togglePhoneNumberRequirements(false)" 
+		oninput="validatePhoneNumber()" />
+
 	
 		<div id="buttonDiv">
 			<button type="button"  onclick="onclickAdd()">
@@ -83,16 +88,16 @@
 				<i class="fa-solid fa-xmark" id="cancelbtn"></i>
 			</button>
 		</div>
-		<div id = "phoneDiv">
+		<div id="phoneDiv">
 			<ul id="phoneNumberRequirements" style="display: none;">
 				<li id="digitsLength" data-text="At least 10 digits" class="invalid">
-					<i class="fa-solid fa-xmark" id="phreqbtn"></i> At least 10 digits
+					<i class="fa-solid fa-xmark"></i> At least 10 digits
 				</li>
 				<li id="hasDigits" data-text="Only digits are allowed" class="invalid">
-					<i class="fa-solid fa-xmark" id="phreqbtn"></i> Only digits are allowed
+					<i class="fa-solid fa-xmark"></i> Only digits are allowed
 				</li>
 			</ul>
-		</div>
+		</div>		
 
 		<!-- <div id="contactAddResult"></div> -->
 	</div>
@@ -120,13 +125,38 @@
         </table>
     </div>
 
+	<!-- Delete Confirmation Modal -->
+	<div id="deleteConfirmationModal" class="modal" style="display:none;">
+		<div class="modal-content">
+			<p>Are you sure you want to delete the contact?</p>
+			<button id="confirmDelete" onclick="confirmDeleteContact();">Yes</button>
+			<button id="cancelDelete" onclick="cancelDeleteContact();">No</button>
+		</div>
+	</div>
+	
+  
+
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function(){
 		readCookie();
 		loadContacts();
 	}, false);
 
-	
+	// Add the scroll trap script to stop the page from moving when reaching the top or bottom of the table
+	document.querySelector('tbody').addEventListener('wheel', function(event) {
+		var element = this;
+		var scrollTop = element.scrollTop;
+		var scrollHeight = element.scrollHeight;
+		var offsetHeight = element.offsetHeight;
+		var deltaY = event.deltaY;
+
+		if (
+			(scrollTop === 0 && deltaY < 0) || 
+			(scrollTop + offsetHeight >= scrollHeight && deltaY > 0)
+		) {
+			event.preventDefault();
+		}
+	});
 </script>
 <script src="js/particles.js"></script>
 <script src="js/app.js"></script>
